@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.zou.read.MainActivity">
+    <item
+        android:id="@+id/action_addfavorite"
+        android:orderInCategory="100"
+        android:title="收藏"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_getlist"
+        android:orderInCategory="100"
+        android:title="返回目录"
+        app:showAsAction="never" />
+</menu>
