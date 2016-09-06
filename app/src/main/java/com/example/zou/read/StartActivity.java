@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,8 @@ import android.widget.ListView;
 import com.example.zou.chapter.ActivityChapter;
 import com.example.zou.sql.FavoriteBean;
 import com.example.zou.sql.FavoriteDatabaseHelper;
+
+import org.litepal.tablemanager.Connector;
 
 import java.util.ArrayList;
 
@@ -38,6 +41,7 @@ public class StartActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_activity);
         context=this;
+        SQLiteDatabase db= Connector.getDatabase();
         favoriteDatabaseHelper=new FavoriteDatabaseHelper(this);
         favoriteBeanArrayList=favoriteDatabaseHelper.getAllContacts();
         listView= (ListView) findViewById(R.id.listview);

@@ -8,11 +8,13 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
             android:scrollbars="vertical"
             android:textSize="20sp"
             android:padding="5dp"
             android:lineSpacingMultiplier="1.5"
-            android:text="小说正文"
+            android:text="正在加载，稍等一下..."
             android:id="@+id/tv_content" />
 
 

@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 public class MainActivity extends Activity {
@@ -19,6 +20,7 @@ public class MainActivity extends Activity {
     ListView new_novel;
     private static Context mcontext;
     public static MainActivity mainActivity;
+    TextView  textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +30,7 @@ public class MainActivity extends Activity {
         mainActivity=this;
         mcontext=MainActivity.this;
         new_novel= (ListView) findViewById(R.id.lv_new_novel);
+        textView= (TextView) findViewById(R.id.wait_newlist_tv);
         init();
     }
     public static Context getContext(){
@@ -66,7 +69,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void dataDownloadFailed() {
-
+            textView.setText("O豁，服务器炸了，过一会再来");
             }
         });
         httpLoad.execute(url);

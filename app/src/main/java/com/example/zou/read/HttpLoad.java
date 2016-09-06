@@ -61,20 +61,24 @@ public class HttpLoad extends AsyncTask<String,Void,String> {
         try {
             Log.d("55555","正在联网");
             String result=HttpConnection(params[0]) ;
+            Log.d("55555","获取的数据为"+result);
             return result;
         } catch (IOException e) {
             e.printStackTrace();
         }
         result="什么也没有";
+        Log.d("55555",result);
         return result;
     }
 
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        if (result!=null){
-            Log.d("55555","读取成功");
+        if (result!=null&&result.length()!=0){
+            Log.d("55555","读取成功"+result);
             dataDownloadListener.dataDownloadSuccessfully(result);
+        }else {
+            dataDownloadListener.dataDownloadFailed();
         }
     }
     public static interface DataDownloadListener{

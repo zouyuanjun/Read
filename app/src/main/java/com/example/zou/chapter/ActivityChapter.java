@@ -125,6 +125,7 @@ public class ActivityChapter extends Activity {
 
             @Override
             public void dataDownloadFailed() {
+                tv_content.setText("O豁，这个网站又崩溃惹。。。换个网站或者时间再来吧");
 
             }
         });
