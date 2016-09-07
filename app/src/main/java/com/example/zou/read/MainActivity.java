@@ -6,12 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.support.v7.app.AppCompatActivity;
-
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.bxwx.name.Parse;
 
 
 public class MainActivity extends Activity {
@@ -63,8 +61,9 @@ public class MainActivity extends Activity {
         httpLoad.setDataDownloadListener(new HttpLoad.DataDownloadListener() {
             @Override
             public void dataDownloadSuccessfully(String result) {
-                HttpParse httpParse=new HttpParse(result);
-                new_novel.setAdapter(new NewNovelAdapter(httpParse.getNewnovelbean()));
+                Parse parse=new Parse(result);
+//                HttpParse httpParse=new HttpParse(result);
+//                new_novel.setAdapter(new NewNovelAdapter(httpParse.getNewnovelbean()));
             }
 
             @Override

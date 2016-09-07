@@ -12,6 +12,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 /**
  * Created by zou on 2016/7/13.
  */
@@ -24,7 +28,19 @@ public class HttpLoad extends AsyncTask<String,Void,String> {
     public void setDataDownloadListener(DataDownloadListener dataDownloadListener) {
         this.dataDownloadListener = dataDownloadListener;
     }
+    private String OKhttp(String url)throws IOException{
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(url).build();
+        Response response = client.newCall(request).execute();
+        if (response.isSuccessful()) {
+            byte[] bytes = response.body().bytes(); //获取数据的bytes
+            String content = new String(bytes,"GB2312");
+            return content;
+        } else {
+            throw new IOException("Unexpected code " + response);
+        }
 
+    }
     private String HttpConnection(String urlString) throws IOException {
         HttpURLConnection urlConnection = null;
         BufferedInputStream in = null;
@@ -33,6 +49,7 @@ public class HttpLoad extends AsyncTask<String,Void,String> {
         try {
             url = new URL(urlString);
             urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setConnectTimeout(5000);
             in = new BufferedInputStream(urlConnection.getInputStream());
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -53,21 +70,20 @@ public class HttpLoad extends AsyncTask<String,Void,String> {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
+        urlConnection.disconnect();
         return result;
     }
     @Override
     protected String doInBackground(String... params) {
         try {
             Log.d("55555","正在联网");
-            String result=HttpConnection(params[0]) ;
-            Log.d("55555","获取的数据为"+result);
+           // String result=HttpConnection(params[0]) ;
+            String result=OKhttp("http://www.bxwx8.org/modules/article/index.php?fullflag=1");
             return result;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        result="什么也没有";
-        Log.d("55555",result);
+        result=null;
         return result;
     }
 
@@ -75,7 +91,6 @@ public class HttpLoad extends AsyncTask<String,Void,String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         if (result!=null&&result.length()!=0){
-            Log.d("55555","读取成功"+result);
             dataDownloadListener.dataDownloadSuccessfully(result);
         }else {
             dataDownloadListener.dataDownloadFailed();

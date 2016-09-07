@@ -19,7 +19,7 @@ import com.example.zou.novellist.ActivityNovelList;
 import com.example.zou.read.HttpLoad;
 import com.example.zou.read.R;
 import com.example.zou.read.StartActivity;
-import com.example.zou.sql.FavoriteDatabaseHelper;
+import com.example.zou.sql.Novel;
 
 /**
  * Created by zou on 2016/7/14.
@@ -35,8 +35,8 @@ public class ActivityChapter extends Activity {
     String nexturl;
     Button bt_last;
     Button bt_next;
-    FavoriteDatabaseHelper favoriteDatabaseHelper;
     String name;
+    int chapteraccount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +44,7 @@ public class ActivityChapter extends Activity {
         intent=getIntent();
         url=intent.getStringExtra("newchapterurl");
         baseurl=intent.getStringExtra("baseurl");
+        chapteraccount=intent.getIntExtra("chapteraccount",0);
         tv_content= (TextView) findViewById(R.id.tv_content);
         bt_last= (Button) findViewById(R.id.bt_last_chapter);
         bt_last.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +67,6 @@ public class ActivityChapter extends Activity {
                 }
             }
         });
-        favoriteDatabaseHelper=new FavoriteDatabaseHelper(this);
         init(url);
     }
 
@@ -86,9 +86,16 @@ public class ActivityChapter extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_addfavorite) {
-            favoriteDatabaseHelper.getWritableDatabase();
-            favoriteDatabaseHelper.insertContact(name,url,baseurl);
-            Toast.makeText(this,"收藏"+name+"成功",Toast.LENGTH_LONG).show();
+            Novel novel=new Novel();
+            novel.setTitle(name);
+            novel.setChapterurl(url);
+            novel.setListurl(baseurl);
+            novel.setChapteraccount(chapteraccount);
+            if (novel.save()){
+                Toast.makeText(this,"收藏"+name+"成功",Toast.LENGTH_LONG).show();
+            }else {
+                Toast.makeText(this,"收藏"+name+"失败",Toast.LENGTH_LONG).show();
+            }
             return true;
         }
         if (id==R.id.action_getlist){
@@ -109,14 +116,14 @@ public class ActivityChapter extends Activity {
         httpLoad.setDataDownloadListener(new HttpLoad.DataDownloadListener() {
             @Override
             public void dataDownloadSuccessfully(String result) {
-               ChapterParse chapterParse=new ChapterParse(result);
-                mresult=chapterParse.getResult();
-                content=chapterParse.getResult().content;
-                name=chapterParse.getResult().name;
-                lasturl=baseurl+mresult.lasturl;
-                nexturl=baseurl+mresult.nexturl;
-                Spanned spannedHtml = Html.fromHtml(content);
-                tv_content.setText(spannedHtml);
+//               ChapterParse chapterParse=new ChapterParse(result);
+//                mresult=chapterParse.getResult();
+//                content=chapterParse.getResult().content;
+//                name=chapterParse.getResult().name;
+//                lasturl=baseurl+mresult.lasturl;
+//                nexturl=baseurl+mresult.nexturl;
+             //   Spanned spannedHtml = Html.fromHtml(content);
+                tv_content.setText(result);
                 tv_content.setMovementMethod(new ScrollingMovementMethod());
                 Log.d("55555","上一章地址"+lasturl);
                 Log.d("55555","下一章地址"+nexturl);

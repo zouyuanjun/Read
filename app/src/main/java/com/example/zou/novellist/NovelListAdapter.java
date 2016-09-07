@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.zou.chapter.ActivityChapter;
-import com.example.zou.read.MainActivity;
 import com.example.zou.read.R;
 import com.example.zou.read.StartActivity;
 
@@ -20,26 +19,27 @@ import java.util.ArrayList;
  */
 public class NovelListAdapter extends BaseAdapter{
     private Context context;
-    ArrayList<NovelListBean> novelListBeen=new ArrayList();
+    ArrayList<NovelListBean> novelListBean =new ArrayList();
     private LayoutInflater mNovelListInflater;
     String url;
     String baseurl;
-
-    public NovelListAdapter(ArrayList<NovelListBean> novelListBeen,String url) {
-        this.novelListBeen = novelListBeen;
+    int chapteaccount=0;
+    public NovelListAdapter(ArrayList<NovelListBean> novelListBean,String url) {
+        this.novelListBean = novelListBean;
         this.context= StartActivity.getContext();
         this.baseurl=url;
+        chapteaccount=novelListBean.size();
         mNovelListInflater=LayoutInflater.from(context);
     }
 
     @Override
     public int getCount() {
-        return novelListBeen.size();
+        return novelListBean.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return novelListBeen.get(position);
+        return novelListBean.get(position);
     }
 
     @Override
@@ -53,14 +53,15 @@ public class NovelListAdapter extends BaseAdapter{
 
         TextView chaptersname= (TextView) convertView.findViewById(R.id.tv_novel_list_item);
 
-        chaptersname.setText(novelListBeen.get(position).chaptersname);
+        chaptersname.setText(novelListBean.get(position).chaptersname);
         chaptersname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                url=novelListBeen.get(position).chaptersurl;
+                url= novelListBean.get(position).chaptersurl;
                 Intent intent=new Intent(StartActivity.getContext(), ActivityChapter.class);
                 intent.putExtra("newchapterurl",url);
                 intent.putExtra("baseurl",baseurl);
+                intent.putExtra("chapteraccount",chapteaccount);
                 StartActivity.getContext().startActivity(intent);
             }
         });

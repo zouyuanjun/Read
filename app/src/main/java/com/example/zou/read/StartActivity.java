@@ -6,24 +6,27 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ListView;
 
 import com.example.zou.chapter.ActivityChapter;
-import com.example.zou.sql.FavoriteBean;
-import com.example.zou.sql.FavoriteDatabaseHelper;
+import com.example.zou.sql.Novel;
 
+import org.litepal.crud.DataSupport;
 import org.litepal.tablemanager.Connector;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zou on 2016/7/15.
  */
-public class StartActivity extends Activity{
+public class StartActivity extends AppCompatActivity{
     public static Context getContext() {
         return context;
     }
@@ -31,21 +34,30 @@ public class StartActivity extends Activity{
     public static Context context;
     private SharedPreferences pref;
     Button last_read;
-    Button newlist;
-    Button grilnovel;
-    FavoriteDatabaseHelper favoriteDatabaseHelper;
     ListView listView;
-    ArrayList<FavoriteBean> favoriteBeanArrayList=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_activity);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);//toolbar支持
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int menuItemId = item.getItemId();
+                if (menuItemId == R.id.action_doushiyanqing) {
+                    Intent intent = new Intent(StartActivity.this, com.bxwx.name.NameActivity.class);
+                    startActivity(intent);
+                    return true;
+                }
+                return true;
+            }
+        });
         context=this;
         SQLiteDatabase db= Connector.getDatabase();
-        favoriteDatabaseHelper=new FavoriteDatabaseHelper(this);
-        favoriteBeanArrayList=favoriteDatabaseHelper.getAllContacts();
+        List<Novel> favoritenovellist =DataSupport.findAll(Novel.class);
         listView= (ListView) findViewById(R.id.listview);
-        listView.setAdapter(new GridViewAdapter(favoriteBeanArrayList,listView));
+        listView.setAdapter(new GridViewAdapter(favoritenovellist,listView));
         last_read= (Button) findViewById(R.id.bt_lastread);
         last_read.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,23 +80,28 @@ public class StartActivity extends Activity{
                 }
             }
         });
-        newlist= (Button) findViewById(R.id.bt_newlist);
-        newlist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(StartActivity.this,MainActivity.class);
-                intent.putExtra("url","http://www.doulaidu.com/dsort/3/1.html");
-                startActivity(intent);
-            }
-        });
-        grilnovel= (Button) findViewById(R.id.bt_grilnovel);
-        grilnovel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(StartActivity.this,MainActivity.class);
-                intent.putExtra("url","http://www.doulaidu.com/dsort/7/1.html");
-                startActivity(intent);
-            }
-        });
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_startactivity, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_doushiyanqing) {
+            Intent intent = new Intent(StartActivity.this, com.bxwx.name.NameActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -42,7 +42,6 @@ public class HttpParse {
                     name=linkText;
                     tag=false;
                     i=2;
-                Log.d("5555","添加署名："+name);
                     break;
                  }
                 case 2:{
@@ -52,7 +51,6 @@ public class HttpParse {
                     newchaptersname=linkText;
                     i=1;
                     tag=true;
-                    Log.d("5555","添加章节名："+newchaptersname);
                 }
             }
             if (tag){

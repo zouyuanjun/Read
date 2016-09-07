@@ -11,6 +11,8 @@ import com.example.zou.read.HttpLoad;
 import com.example.zou.read.NewNovelAdapter;
 import com.example.zou.read.R;
 
+import java.util.ArrayList;
+
 /**
  * Created by zou on 2016/7/14.
  */
@@ -19,6 +21,7 @@ public class ActivityNovelList extends Activity{
     ListView listView;
     String url="http://www.doulaidu.com//xs/65861";
     TextView textView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +38,9 @@ public class ActivityNovelList extends Activity{
             @Override
             public void dataDownloadSuccessfully(String result) {
                 NovelListParse novelListParse=new NovelListParse(result);
-
-                  listView.setAdapter(new NovelListAdapter(novelListParse.getnovelListbean(),url));
+                ArrayList<NovelListBean> novelListbean=new ArrayList();
+                novelListbean=novelListParse.getnovelListbean();
+                listView.setAdapter(new NovelListAdapter(novelListbean,url));
                 Log.d("55555",result);
             }
 
