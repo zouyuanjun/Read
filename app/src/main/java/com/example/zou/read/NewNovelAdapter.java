@@ -23,7 +23,7 @@ public class NewNovelAdapter extends BaseAdapter {
 
     public NewNovelAdapter(ArrayList<NewNovelBean> newnovelbean) {
         this.newnovelbean = newnovelbean;
-        this.context=MainActivity.getContext();
+        this.context=StartActivity.getContext();
         mnewNovelInflater=LayoutInflater.from(context);
     }
 

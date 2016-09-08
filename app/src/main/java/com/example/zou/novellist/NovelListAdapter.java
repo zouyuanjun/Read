@@ -19,12 +19,12 @@ import java.util.ArrayList;
  */
 public class NovelListAdapter extends BaseAdapter{
     private Context context;
-    ArrayList<NovelListBean> novelListBean =new ArrayList();
+    ArrayList<ChapterDirectoryBean> novelListBean =new ArrayList();
     private LayoutInflater mNovelListInflater;
     String url;
     String baseurl;
     int chapteaccount=0;
-    public NovelListAdapter(ArrayList<NovelListBean> novelListBean,String url) {
+    public NovelListAdapter(ArrayList<ChapterDirectoryBean> novelListBean, String url) {
         this.novelListBean = novelListBean;
         this.context= StartActivity.getContext();
         this.baseurl=url;

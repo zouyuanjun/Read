@@ -47,7 +47,6 @@ public class Novel extends DataSupport{
     public String getListurl() {
         return listurl;
     }
-
     public void setListurl(String listurl) {
         this.listurl = listurl;
     }

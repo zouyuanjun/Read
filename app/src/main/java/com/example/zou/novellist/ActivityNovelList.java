@@ -7,8 +7,8 @@ import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bxwx.chapterdirectory.DirectoryParse;
 import com.example.zou.read.HttpLoad;
-import com.example.zou.read.NewNovelAdapter;
 import com.example.zou.read.R;
 
 import java.util.ArrayList;
@@ -37,11 +37,12 @@ public class ActivityNovelList extends Activity{
         httpLoad.setDataDownloadListener(new HttpLoad.DataDownloadListener() {
             @Override
             public void dataDownloadSuccessfully(String result) {
-                NovelListParse novelListParse=new NovelListParse(result);
-                ArrayList<NovelListBean> novelListbean=new ArrayList();
-                novelListbean=novelListParse.getnovelListbean();
-                listView.setAdapter(new NovelListAdapter(novelListbean,url));
-                Log.d("55555",result);
+                DirectoryParse directoryParse=new DirectoryParse(result);
+//                NovelListParse novelListParse=new NovelListParse(result);
+//                ArrayList<ChapterDirectoryBean> novelListbean=new ArrayList();
+//                novelListbean=novelListParse.getnovelListbean();
+//                listView.setAdapter(new NovelListAdapter(novelListbean,url));
+                Log.d("555557",result);
             }
 
             @Override
