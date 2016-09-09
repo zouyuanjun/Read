@@ -32,6 +32,7 @@ public class StartActivity extends AppCompatActivity{
     }
 
     public static Context context;
+    public static StartActivity startActivity;
     private SharedPreferences pref;
     Button last_read;
     ListView listView;
@@ -47,6 +48,13 @@ public class StartActivity extends AppCompatActivity{
                 int menuItemId = item.getItemId();
                 if (menuItemId == R.id.action_doushiyanqing) {
                     Intent intent = new Intent(StartActivity.this, com.bxwx.name.NameActivity.class);
+                    intent.putExtra("url","http://www.bxwx8.org/bsort3/0/1.htm");
+                    startActivity(intent);
+                    return true;
+                }
+                if (menuItemId == R.id.action_wangjie) {
+                    Intent intent = new Intent(StartActivity.this, com.bxwx.name.NameActivity.class);
+                    intent.putExtra("url","http://www.bxwx8.org/modules/article/index.php?fullflag=1");
                     startActivity(intent);
                     return true;
                 }
@@ -54,6 +62,7 @@ public class StartActivity extends AppCompatActivity{
             }
         });
         context=this;
+        startActivity=this;
         SQLiteDatabase db= Connector.getDatabase();
         List<Novel> favoritenovellist =DataSupport.findAll(Novel.class);
         listView= (ListView) findViewById(R.id.listview);

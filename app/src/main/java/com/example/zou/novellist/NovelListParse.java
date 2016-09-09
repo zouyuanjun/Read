@@ -2,8 +2,6 @@ package com.example.zou.novellist;
 
 import android.util.Log;
 
-import com.example.zou.read.NewNovelBean;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,7 +14,7 @@ import java.util.ArrayList;
  */
 public class NovelListParse {
     String html;
-    ArrayList<NovelListBean> novelListbean=new ArrayList();
+    ArrayList<ChapterDirectoryBean> novelListbean=new ArrayList();
     String baseurl="http://www.doulaidu.com/";
     public NovelListParse(String html){
         this.html=html;
@@ -30,13 +28,13 @@ public class NovelListParse {
         for (Element link : links) {
             String linkHref=baseurl+link.attr("href");
             String linkText = link.text();
-            NovelListBean novelListBean=new NovelListBean(linkHref,linkText);
+            ChapterDirectoryBean novelListBean=new ChapterDirectoryBean(linkHref,linkText);
             novelListbean.add(novelListBean);
             Log.d("55555","获取的属性："+linkHref);
             Log.d("55555","获取的内容："+linkText);
         }
     }
-    public ArrayList<NovelListBean> getnovelListbean(){
+    public ArrayList<ChapterDirectoryBean> getnovelListbean(){
         return novelListbean;
     }
 }

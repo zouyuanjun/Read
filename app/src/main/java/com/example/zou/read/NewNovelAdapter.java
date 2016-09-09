@@ -23,7 +23,7 @@ public class NewNovelAdapter extends BaseAdapter {
 
     public NewNovelAdapter(ArrayList<NewNovelBean> newnovelbean) {
         this.newnovelbean = newnovelbean;
-        this.context=MainActivity.getContext();
+        this.context=StartActivity.getContext();
         mnewNovelInflater=LayoutInflater.from(context);
     }
 
@@ -53,9 +53,9 @@ public class NewNovelAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 String novelurl=newnovelbean.get(position).url;
-                Intent intent=new Intent(MainActivity.mainActivity, ActivityNovelList.class);
+                Intent intent=new Intent(StartActivity.startActivity, ActivityNovelList.class);
                 intent.putExtra("novelurl",novelurl);
-                MainActivity.mainActivity.startActivity(intent);
+                StartActivity.startActivity.startActivity(intent);
             }
         });
         tv_new_newchaptersname.setText(newnovelbean.get(position).newchaptersname);

@@ -8,5 +8,10 @@ tools:context="com.example.zou.read.StartActivity">
     android:orderInCategory="100"
     android:title="都市言情"
     app:showAsAction="never" />
+    <item
+        android:id="@+id/action_wangjie"
+        android:orderInCategory="100"
+        android:title="全本小说"
+        app:showAsAction="never" />
 
 </menu>
