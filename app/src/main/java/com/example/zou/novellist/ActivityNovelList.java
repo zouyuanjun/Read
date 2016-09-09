@@ -19,7 +19,8 @@ import java.util.ArrayList;
 public class ActivityNovelList extends Activity{
     Intent intent;
     ListView listView;
-    String url="http://www.doulaidu.com//xs/65861";
+    String baseurl="http://www.bxwx8.org";
+    String url;
     TextView textView;
 
     @Override
@@ -44,12 +45,12 @@ public class ActivityNovelList extends Activity{
 //                listView.setAdapter(new NovelListAdapter(novelListbean,url));
                 Log.d("555557",result);
             }
-
             @Override
             public void dataDownloadFailed() {
                 textView.setText("O豁，服务器炸了，等等再看");
             }
         });
-        httpLoad.execute(url);
+        Log.d("66666","即将开始联网");
+        httpLoad.execute(baseurl+url);
     }
 }

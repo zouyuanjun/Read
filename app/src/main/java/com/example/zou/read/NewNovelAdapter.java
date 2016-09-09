@@ -53,9 +53,9 @@ public class NewNovelAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 String novelurl=newnovelbean.get(position).url;
-                Intent intent=new Intent(MainActivity.mainActivity, ActivityNovelList.class);
+                Intent intent=new Intent(StartActivity.startActivity, ActivityNovelList.class);
                 intent.putExtra("novelurl",novelurl);
-                MainActivity.mainActivity.startActivity(intent);
+                StartActivity.startActivity.startActivity(intent);
             }
         });
         tv_new_newchaptersname.setText(newnovelbean.get(position).newchaptersname);

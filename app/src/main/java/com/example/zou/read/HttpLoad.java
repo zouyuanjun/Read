@@ -78,7 +78,8 @@ public class HttpLoad extends AsyncTask<String,Void,String> {
         try {
             Log.d("55555","正在联网");
            // String result=HttpConnection(params[0]) ;
-            String result=OKhttp("http://www.bxwx8.org/modules/article/index.php?fullflag=1");
+            Log.d("6666","本次请求的网址为:"+params[0]);
+            String result=OKhttp(params[0]);
             return result;
         } catch (IOException e) {
             e.printStackTrace();

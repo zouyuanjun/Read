@@ -20,11 +20,15 @@ public class DirectoryParse {
 
     public DirectoryParse(String html) {
         this.html = html;
+        Parse();
     }
     public void Parse(){
         Document doc = Jsoup.parse(html);
-        Elements element=doc.getElementsByAttributeValue("src","/images/dian.gif");
-        String taburl=element.attr("href");
-        Log.d("666666","目录网址为："+taburl);
+        Element element=doc.getElementById("centerm");
+        Elements elements=element.select("td");
+        for (Element link:elements){
+            String taburl=link.toString();
+            Log.d("666666","目录网址为："+taburl);
+        }
     }
 }
