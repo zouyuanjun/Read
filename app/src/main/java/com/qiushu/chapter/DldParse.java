@@ -1,6 +1,8 @@
-package com.example.zou.chapter;
+package com.qiushu.chapter;
 
 import android.util.Log;
+
+import com.example.zou.chapter.Result;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,7 +14,7 @@ import org.jsoup.select.Elements;
 /**
  * Created by zou on 2016/7/14.
  */
-public class ChapterParse {
+public class DldParse {
     String html;
     String lasturl;
     String nexturl;
@@ -20,7 +22,7 @@ public class ChapterParse {
     Result result;
 
     String baseurl="http://www.doulaidu.com/";
-    public ChapterParse(String html){
+    public DldParse(String html){
         this.html=html;
         parse();
     }

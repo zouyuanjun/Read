@@ -8,6 +8,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:fitsSystemWindows="true"
-    tools:context=".StartActivity">
+    tools:context="com.example.zou.start.StartActivity">
    <include layout="@layout/content_start"></include>
 </android.support.design.widget.CoordinatorLayout>

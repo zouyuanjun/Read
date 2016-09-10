@@ -1,6 +1,4 @@
-package com.bxwx.name;
-
-import android.util.Log;
+package com.qiushu.name;
 
 import com.example.zou.read.NewNovelBean;
 
@@ -14,7 +12,7 @@ import java.util.ArrayList;
 /**
  * Created by zou on 2016/9/7.
  */
-public class Parse {
+public class QiushunameParse {
     NewNovelBean newNovelBean;
     NameBean nameBean;
     ChapterBean chapterBean;
@@ -26,24 +24,24 @@ public class Parse {
     String name;
     String newchaptersurl;
     String newchaptersname;
-    public Parse(String html) {
+    public QiushunameParse(String html) {
         this.html = html;
         httpparse(html);
     }
     public void httpparse(String html){
 
         Document doc= Jsoup.parse(html);
-        Element el = doc.getElementById("centerm");
-        Elements els= el.getElementsByClass("odd");
-        Elements links = els.select("a[href]");
+        Element element=doc.getElementById("main");
+        Elements els = element.getElementsByClass("t1");
+        Elements els2 = element.getElementsByClass("t4");
+        Elements links=els.select("a");
         for (Element el2:links){
             url =el2.attr("href");
             name=el2.text();
             nameBean=new NameBean(url,name);
             nameBeanArrayList.add(nameBean);
         }
-        Elements els2= el.getElementsByClass("even");
-        Elements links2 = els2.select("a[href]");
+        Elements links2=els2.select("a");
         for (Element el2:links2){
             newchaptersurl=el2.attr("href");
             newchaptersname=el2.text();
@@ -53,14 +51,41 @@ public class Parse {
         for (int i=0;i<nameBeanArrayList.size();i++){
             String url=nameBeanArrayList.get(i).url;
             String name=nameBeanArrayList.get(i).name;
-            String newchaptersurl=chapterBeanArrayList.get(i).newchaptersurl;
+            String newchaptersurl="www.qiushu.cc/"+chapterBeanArrayList.get(i).newchaptersurl;
             String newchaptersname=chapterBeanArrayList.get(i).newchaptersname;
             newNovelBean=new NewNovelBean(url,name,newchaptersurl,newchaptersname);
             newnovelbean.add(newNovelBean);
         }
 
-    }
+        }
+
     public static ArrayList<NewNovelBean> getNewnovelbean(){
         return newnovelbean;
+    }
+
+    /**
+     * Created by zou on 2016/9/8.
+     */
+    public static class ChapterBean {
+        String newchaptersurl;
+        String newchaptersname;
+
+        public ChapterBean(String newchaptersurl, String newchaptersname) {
+            this.newchaptersurl = newchaptersurl;
+            this.newchaptersname = newchaptersname;
+        }
+    }
+
+    /**
+     * Created by zou on 2016/9/8.
+     */
+    public static class NameBean {
+        String url;
+        String name;
+
+        public NameBean(String url, String name) {
+            this.url = url;
+            this.name = name;
+        }
     }
 }

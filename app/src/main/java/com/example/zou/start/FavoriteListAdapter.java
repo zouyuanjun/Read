@@ -1,4 +1,4 @@
-package com.example.zou.read;
+package com.example.zou.start;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -11,19 +11,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zou.chapter.ActivityChapter;
+import com.example.zou.read.R;
 import com.example.zou.sql.Novel;
+import com.example.zou.start.StartActivity;
 
 import java.util.List;
 
 /**
  * Created by zou on 2016/7/19.
  */
-public class GridViewAdapter extends BaseAdapter{
+public class FavoriteListAdapter extends BaseAdapter{
     LayoutInflater layoutInflater;
     List<Novel> favoritnovel;
     ListView listView;
 
-    public GridViewAdapter(List<Novel> favoritnovel,ListView listView) {
+    public FavoriteListAdapter(List<Novel> favoritnovel, ListView listView) {
         layoutInflater=LayoutInflater.from(StartActivity.getContext());
         this.favoritnovel=favoritnovel;
         this.listView=listView;

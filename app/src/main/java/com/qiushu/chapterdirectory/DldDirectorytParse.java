@@ -1,6 +1,8 @@
-package com.example.zou.novellist;
+package com.qiushu.chapterdirectory;
 
 import android.util.Log;
+
+import com.example.zou.novellist.ChapterDirectoryBean;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,11 +14,11 @@ import java.util.ArrayList;
 /**
  * Created by zou on 2016/7/14.
  */
-public class NovelListParse {
+public class DldDirectorytParse {
     String html;
     ArrayList<ChapterDirectoryBean> novelListbean=new ArrayList();
     String baseurl="http://www.doulaidu.com/";
-    public NovelListParse(String html){
+    public DldDirectorytParse(String html){
         this.html=html;
         parse();
     }

@@ -1,4 +1,4 @@
-package com.example.zou.read;
+package com.example.zou.start;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -30,7 +30,10 @@ public class HttpLoad extends AsyncTask<String,Void,String> {
     }
     private String OKhttp(String url)throws IOException{
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(url).build();
+        Request.Builder builder=new  Request.Builder();
+        builder.addHeader("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.2.6) Gecko/20100625 Firefox/3.6.6 Greatwqs");
+        Request request = builder.url(url).build();
+
         Response response = client.newCall(request).execute();
         if (response.isSuccessful()) {
             byte[] bytes = response.body().bytes(); //获取数据的bytes

@@ -2,6 +2,7 @@ package com.example.zou.read;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.zou.chapter.ActivityChapter;
-import com.example.zou.novellist.ActivityNovelList;
+import com.example.zou.novellist.NovelListActivity;
+import com.example.zou.start.StartActivity;
 
 import java.util.ArrayList;
 
@@ -23,7 +25,7 @@ public class NewNovelAdapter extends BaseAdapter {
 
     public NewNovelAdapter(ArrayList<NewNovelBean> newnovelbean) {
         this.newnovelbean = newnovelbean;
-        this.context=StartActivity.getContext();
+        this.context= StartActivity.getContext();
         mnewNovelInflater=LayoutInflater.from(context);
     }
 
@@ -53,8 +55,9 @@ public class NewNovelAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 String novelurl=newnovelbean.get(position).url;
-                Intent intent=new Intent(StartActivity.startActivity, ActivityNovelList.class);
+                Intent intent=new Intent(StartActivity.startActivity, NovelListActivity.class);
                 intent.putExtra("novelurl",novelurl);
+                Log.d("66666","小说URL"+novelurl);
                 StartActivity.startActivity.startActivity(intent);
             }
         });
@@ -63,9 +66,10 @@ public class NewNovelAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 String newchapterurl=newnovelbean.get(position).newchaptersurl;
-                Intent intent=new Intent(MainActivity.mainActivity, ActivityChapter.class);
+                Intent intent=new Intent(StartActivity.startActivity, ActivityChapter.class);
                 intent.putExtra("newchapterurl",newchapterurl);
-                MainActivity.mainActivity.startActivity(intent);
+                Log.d("66666","章节URL"+newchapterurl);
+                StartActivity.startActivity.startActivity(intent);
             }
         });
         return convertView;

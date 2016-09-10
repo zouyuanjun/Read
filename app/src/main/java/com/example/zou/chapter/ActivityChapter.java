@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.Spanned;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
@@ -15,10 +13,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.zou.novellist.ActivityNovelList;
-import com.example.zou.read.HttpLoad;
+import com.qiushu.chapter.QiushuParse;
+import com.example.zou.novellist.NovelListActivity;
+import com.example.zou.start.HttpLoad;
 import com.example.zou.read.R;
-import com.example.zou.read.StartActivity;
+import com.example.zou.start.StartActivity;
 import com.example.zou.sql.Novel;
 
 /**
@@ -99,7 +98,7 @@ public class ActivityChapter extends Activity {
             return true;
         }
         if (id==R.id.action_getlist){
-            Intent intent=new Intent(ActivityChapter.this, ActivityNovelList.class);
+            Intent intent=new Intent(ActivityChapter.this, NovelListActivity.class);
             intent.putExtra("novelurl",baseurl);
             startActivity(intent);
         }
@@ -116,14 +115,15 @@ public class ActivityChapter extends Activity {
         httpLoad.setDataDownloadListener(new HttpLoad.DataDownloadListener() {
             @Override
             public void dataDownloadSuccessfully(String result) {
-//               ChapterParse chapterParse=new ChapterParse(result);
+               QiushuParse chapterParse2=new QiushuParse(result);
+                content=chapterParse2.getContent();
 //                mresult=chapterParse.getResult();
 //                content=chapterParse.getResult().content;
 //                name=chapterParse.getResult().name;
 //                lasturl=baseurl+mresult.lasturl;
 //                nexturl=baseurl+mresult.nexturl;
              //   Spanned spannedHtml = Html.fromHtml(content);
-                tv_content.setText(result);
+                tv_content.setText(content);
                 tv_content.setMovementMethod(new ScrollingMovementMethod());
                 Log.d("55555","上一章地址"+lasturl);
                 Log.d("55555","下一章地址"+nexturl);

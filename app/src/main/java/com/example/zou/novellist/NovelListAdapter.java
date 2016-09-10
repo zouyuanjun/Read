@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.zou.chapter.ActivityChapter;
 import com.example.zou.read.R;
-import com.example.zou.read.StartActivity;
+import com.example.zou.start.StartActivity;
 
 import java.util.ArrayList;
 
@@ -59,7 +59,7 @@ public class NovelListAdapter extends BaseAdapter{
             public void onClick(View v) {
                 url= novelListBean.get(position).chaptersurl;
                 Intent intent=new Intent(StartActivity.getContext(), ActivityChapter.class);
-                intent.putExtra("newchapterurl",url);
+                intent.putExtra("newchapterurl",baseurl+url);
                 intent.putExtra("baseurl",baseurl);
                 intent.putExtra("chapteraccount",chapteaccount);
                 StartActivity.getContext().startActivity(intent);

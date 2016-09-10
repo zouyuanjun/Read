@@ -7,8 +7,8 @@ import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.bxwx.chapterdirectory.DirectoryParse;
-import com.example.zou.read.HttpLoad;
+import com.qiushu.chapterdirectory.QiushuDirectoryParse;
+import com.example.zou.start.HttpLoad;
 import com.example.zou.read.R;
 
 import java.util.ArrayList;
@@ -16,10 +16,9 @@ import java.util.ArrayList;
 /**
  * Created by zou on 2016/7/14.
  */
-public class ActivityNovelList extends Activity{
+public class NovelListActivity extends Activity{
     Intent intent;
     ListView listView;
-    String baseurl="http://www.bxwx8.org";
     String url;
     TextView textView;
 
@@ -38,12 +37,10 @@ public class ActivityNovelList extends Activity{
         httpLoad.setDataDownloadListener(new HttpLoad.DataDownloadListener() {
             @Override
             public void dataDownloadSuccessfully(String result) {
-                DirectoryParse directoryParse=new DirectoryParse(result);
-//                NovelListParse novelListParse=new NovelListParse(result);
-//                ArrayList<ChapterDirectoryBean> novelListbean=new ArrayList();
-//                novelListbean=novelListParse.getnovelListbean();
-//                listView.setAdapter(new NovelListAdapter(novelListbean,url));
-                Log.d("555557",result);
+                QiushuDirectoryParse directoryParse=new QiushuDirectoryParse(result);
+                ArrayList<ChapterDirectoryBean> novelListbean=new ArrayList();
+                novelListbean=directoryParse.getNovelListbean();
+                listView.setAdapter(new NovelListAdapter(novelListbean,url));
             }
             @Override
             public void dataDownloadFailed() {
@@ -51,6 +48,6 @@ public class ActivityNovelList extends Activity{
             }
         });
         Log.d("66666","即将开始联网");
-        httpLoad.execute(baseurl+url);
+        httpLoad.execute(url);
     }
 }

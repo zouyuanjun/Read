@@ -1,6 +1,5 @@
-package com.bxwx.name;
+package com.example.zou.read;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,19 +9,16 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.zou.read.HttpLoad;
-import com.example.zou.read.MainActivity;
-import com.example.zou.read.NewNovelAdapter;
-import com.example.zou.read.R;
-import static com.example.zou.read.R.menu.menu_startactivity;
+import com.example.zou.start.HttpLoad;
+import com.qiushu.name.QiushunameParse;
 
 /**
  * Created by zou on 2016/9/7.
  */
 public class NameActivity extends AppCompatActivity{
-    String url="http://www.doulaidu.com/dsort/7/1.html";
+    String url;
 
-    ListView new_novel;
+    ListView new_novel_list;
     TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,21 +26,23 @@ public class NameActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.name_activitytoolbar);
         setSupportActionBar(toolbar);//toolbar支持
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                int menuItemId = item.getItemId();
-                if (menuItemId == R.id.action_doushiyanqing) {
-                    Intent intent = new Intent(NameActivity.this, MainActivity.class);
-                    startActivity(intent);
+        if (toolbar != null) {
+            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    int menuItemId = item.getItemId();
+                    if (menuItemId == R.id.action_doushiyanqing) {
+                        Intent intent = new Intent(NameActivity.this, NameActivity.class);
+                        startActivity(intent);
+                        return true;
+                    }
                     return true;
                 }
-                return true;
-            }
-        });
+            });
+        }
         Intent l=getIntent();
         url=l.getStringExtra("url");
-        new_novel= (ListView) findViewById(R.id.lv_new_novel);
+        new_novel_list = (ListView) findViewById(R.id.lv_new_novel);
         textView= (TextView) findViewById(R.id.wait_newlist_tv);
         init();
     }
@@ -65,7 +63,7 @@ public class NameActivity extends AppCompatActivity{
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_doushiyanqing) {
-            Intent intent = new Intent(NameActivity.this, com.bxwx.name.NameActivity.class);
+            Intent intent = new Intent(NameActivity.this, NameActivity.class);
             startActivity(intent);
             return true;
         }
@@ -76,9 +74,9 @@ public class NameActivity extends AppCompatActivity{
         httpLoad.setDataDownloadListener(new HttpLoad.DataDownloadListener() {
             @Override
             public void dataDownloadSuccessfully(String result) {
-                Parse parse=new Parse(result);
-//               HttpParse httpParse=new HttpParse(result);
-               new_novel.setAdapter(new NewNovelAdapter(Parse.getNewnovelbean()));
+                QiushunameParse parse=new QiushunameParse(result);
+
+                new_novel_list.setAdapter(new NewNovelAdapter(parse.getNewnovelbean()));
             }
 
             @Override

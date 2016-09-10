@@ -1,6 +1,8 @@
-package com.example.zou.read;
+package com.qiushu.name;
 
 import android.util.Log;
+
+import com.example.zou.read.NewNovelBean;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 /**
  * Created by zou on 2016/7/13.
  */
-public class HttpParse {
+public class DldnameParse {
     String html;
     ArrayList<NewNovelBean> newnovelbean=new ArrayList();
     String url;
@@ -21,7 +23,7 @@ public class HttpParse {
     String newchaptersurl;
     String newchaptersname;
     String baseurl="http://www.doulaidu.com/";
-    public HttpParse(String html){
+    public DldnameParse(String html){
         this.html=html;
         parse();
     }

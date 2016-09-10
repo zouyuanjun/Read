@@ -1,6 +1,5 @@
-package com.example.zou.read;
+package com.example.zou.start;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +15,8 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.zou.chapter.ActivityChapter;
+import com.example.zou.read.NameActivity;
+import com.example.zou.read.R;
 import com.example.zou.sql.Novel;
 
 import org.litepal.crud.DataSupport;
@@ -42,31 +43,33 @@ public class StartActivity extends AppCompatActivity{
         setContentView(R.layout.start_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);//toolbar支持
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                int menuItemId = item.getItemId();
-                if (menuItemId == R.id.action_doushiyanqing) {
-                    Intent intent = new Intent(StartActivity.this, com.bxwx.name.NameActivity.class);
-                    intent.putExtra("url","http://www.bxwx8.org/bsort3/0/1.htm");
-                    startActivity(intent);
+        if (toolbar != null) {
+            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    int menuItemId = item.getItemId();
+                    if (menuItemId == R.id.action_doushiyanqing) {
+                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
+                        intent.putExtra("url","http://www.qiushu.cc/ls/4-1.html");
+                        startActivity(intent);
+                        return true;
+                    }
+                    if (menuItemId == R.id.action_wangjie) {
+                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
+                        intent.putExtra("url","http://www.bxwx8.org/modules/article/index.php?fullflag=1");
+                        startActivity(intent);
+                        return true;
+                    }
                     return true;
                 }
-                if (menuItemId == R.id.action_wangjie) {
-                    Intent intent = new Intent(StartActivity.this, com.bxwx.name.NameActivity.class);
-                    intent.putExtra("url","http://www.bxwx8.org/modules/article/index.php?fullflag=1");
-                    startActivity(intent);
-                    return true;
-                }
-                return true;
-            }
-        });
+            });
+        }
         context=this;
         startActivity=this;
         SQLiteDatabase db= Connector.getDatabase();
         List<Novel> favoritenovellist =DataSupport.findAll(Novel.class);
         listView= (ListView) findViewById(R.id.listview);
-        listView.setAdapter(new GridViewAdapter(favoritenovellist,listView));
+        listView.setAdapter(new FavoriteListAdapter(favoritenovellist,listView));
         last_read= (Button) findViewById(R.id.bt_lastread);
         last_read.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,8 +79,8 @@ public class StartActivity extends AppCompatActivity{
                 String baseurl=pref.getString("baseurl","0");
                     Log.d("5555",chapterurl);
                 if (chapterurl.equals("0")){
-                    Intent intent=new Intent(StartActivity.this,MainActivity.class);
-                    intent.putExtra("url","http://www.doulaidu.com/dsort/3/1.html");
+                    Intent intent=new Intent(StartActivity.this,NameActivity.class);
+                    intent.putExtra("url","http://www.qiushu.cc/ls/4-1.html");
                     startActivity(intent);
 
                 }else {
@@ -107,7 +110,7 @@ public class StartActivity extends AppCompatActivity{
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_doushiyanqing) {
-            Intent intent = new Intent(StartActivity.this, com.bxwx.name.NameActivity.class);
+            Intent intent = new Intent(StartActivity.this, NameActivity.class);
             startActivity(intent);
             return true;
         }
