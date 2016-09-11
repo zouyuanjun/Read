@@ -8,10 +8,12 @@ public class Result {
     String lasturl;
     String nexturl;
     String name;
-    public Result(String content, String lasturl, String nexturl,String name) {
+    String chaptertitle;
+    public Result(String content, String lasturl, String nexturl,String name,String chaptertitle) {
         this.content = content;
         this.lasturl = lasturl;
         this.nexturl = nexturl;
         this.name=name;
+        this.chaptertitle=chaptertitle;
     }
 }

@@ -35,6 +35,7 @@ public class ActivityChapter extends Activity {
     Button bt_next;
     String name;
     int chapteraccount;
+    String chaptertitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +90,7 @@ public class ActivityChapter extends Activity {
             novel.setChapterurl(url);
             novel.setListurl(directoryurl);
             novel.setChapteraccount(chapteraccount);
+            novel.setChaptertitle(chaptertitle);
             if (novel.save()){
                 Toast.makeText(this,"收藏"+name+"成功",Toast.LENGTH_LONG).show();
             }else {
@@ -104,7 +106,7 @@ public class ActivityChapter extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void init(String url) {
+    public void init(final String url) {
 
         HttpLoad httpLoad = new HttpLoad();
         httpLoad.setDataDownloadListener(new HttpLoad.DataDownloadListener() {
@@ -117,8 +119,14 @@ public class ActivityChapter extends Activity {
                 name=chapterParse.getResult().name;
                 lasturl= directoryurl +mresult.lasturl;
                 nexturl= directoryurl +mresult.nexturl;
+                chaptertitle=mresult.chaptertitle;
                 tv_content.setText(content);
                 tv_content.setMovementMethod(new ScrollingMovementMethod());
+                Novel updatanovel=new Novel();
+                updatanovel.setChapterurl(url);
+                updatanovel.setChapteraccount(chapteraccount);
+                updatanovel.setChaptertitle(chaptertitle);
+                updatanovel.updateAll("title=?",name);
                 Log.d("55555","上一章地址"+lasturl);
                 Log.d("55555","下一章地址"+nexturl);
                 Log.d("55555","列表地址"+ directoryurl);

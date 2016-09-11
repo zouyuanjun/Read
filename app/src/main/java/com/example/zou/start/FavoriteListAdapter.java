@@ -50,18 +50,20 @@ public class FavoriteListAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView=layoutInflater.inflate(R.layout.gridview_item,null);
-        TextView name= (TextView) convertView.findViewById(R.id.tv_gridview_item);
+        TextView name= (TextView) convertView.findViewById(R.id.tv_favorite_nover_name);
+        TextView chaptertitle= (TextView) convertView.findViewById(R.id.tv_chapter_account);
         name.setText(favoritnovel.get(position).getTitle());
-
+        chaptertitle.setText(favoritnovel.get(position).getChaptertitle());
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent=new Intent(StartActivity.getContext(), ActivityChapter.class);
                 intent.putExtra("newchapterurl",favoritnovel.get(position).getChapterurl());
-                intent.putExtra("baseurl",favoritnovel.get(position).getListurl());
+                intent.putExtra("directoryurl",favoritnovel.get(position).getListurl());
+                intent.putExtra("chapteraccount",favoritnovel.get(position).getChapteraccount());
                 StartActivity.getContext().startActivity(intent);
                 Toast.makeText(StartActivity.getContext(),"选择了"+favoritnovel.get(position)
-                        .getTitle(),Toast.LENGTH_LONG).show();
+                        .getTitle(),Toast.LENGTH_SHORT).show();
             }
         });
         return convertView;

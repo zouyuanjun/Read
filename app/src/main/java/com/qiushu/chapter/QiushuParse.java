@@ -47,8 +47,11 @@ public class QiushuParse {
         for (Element element1:elements2){
             String name=element1.text();
             namelist.add(name);
-            Log.d("6666","小说名称为"+name);
         }
-        result=new Result(content,arrayList.get(2),arrayList.get(0),namelist.get(1));
+        Elements elements3=document.getElementsByClass("date");
+        Elements elements4=elements3.select("h1");
+        String chaptertitle=elements4.text();
+
+        result=new Result(content,arrayList.get(2),arrayList.get(0),namelist.get(1),chaptertitle);
     }
 }

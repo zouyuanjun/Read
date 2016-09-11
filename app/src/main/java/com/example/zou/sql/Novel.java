@@ -11,6 +11,15 @@ public class Novel extends DataSupport{
     private String listurl;
     private String chapterurl;
     private int chapteraccount;
+    private String chaptertitle;
+
+    public String getChaptertitle() {
+        return chaptertitle;
+    }
+
+    public void setChaptertitle(String chaptertitle) {
+        this.chaptertitle = chaptertitle;
+    }
 
     public int getChapteraccount() {
         return chapteraccount;

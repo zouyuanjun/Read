@@ -1,13 +1,17 @@
 package com.example.zou.start;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.zou.read.NameActivity;
@@ -30,6 +34,8 @@ public class StartActivity extends AppCompatActivity{
     public static Context context;
     public static StartActivity startActivity;
     ListView listView;
+    List<Novel> favoritenovellist;
+    FavoriteListAdapter favoriteListAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,12 +89,21 @@ public class StartActivity extends AppCompatActivity{
         }
         context=this;
         startActivity=this;
-        SQLiteDatabase db= Connector.getDatabase();
-        List<Novel> favoritenovellist =DataSupport.findAll(Novel.class);
-        listView= (ListView) findViewById(R.id.listview);
-        listView.setAdapter(new FavoriteListAdapter(favoritenovellist,listView));
+     //   init();
 
     }
+
+    @Override
+    protected void onResume() {
+        SQLiteDatabase db= Connector.getDatabase();
+        favoritenovellist =DataSupport.findAll(Novel.class);
+        listView= (ListView) findViewById(R.id.listview);
+        favoriteListAdapter=new FavoriteListAdapter(favoritenovellist,listView);
+        listView.setAdapter(favoriteListAdapter);
+       // init();
+        super.onResume();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -110,5 +125,23 @@ public class StartActivity extends AppCompatActivity{
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void init(){
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final String name=favoritenovellist.get(position).getTitle();
+                new AlertDialog.Builder(StartActivity.this).setPositiveButton("删除？", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DataSupport.deleteAll(Novel.class,"title=?",name);
+                        favoriteListAdapter.notifyDataSetChanged();
+                    }
+                }).show();
+                return false;
+            }
+        });
+
     }
 }

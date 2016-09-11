@@ -49,7 +49,7 @@ public class DldParse {
         Elements title2=title.select("a[title]");
         String titlestring=title2.text();
         Log.d("55555","小说标题是"+titlestring);
-       result=new Result(resultString,lasturl,nexturl,titlestring);
+       result=new Result(resultString,lasturl,nexturl,titlestring,titlestring);
     }
 
     public Result getResult() {
