@@ -53,6 +53,7 @@ public class HttpLoad extends AsyncTask<String,Void,String> {
             url = new URL(urlString);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setConnectTimeout(5000);
+            urlConnection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.2.6) Gecko/20100625 Firefox/3.6.6 Greatwqs");
             in = new BufferedInputStream(urlConnection.getInputStream());
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -64,7 +65,7 @@ public class HttpLoad extends AsyncTask<String,Void,String> {
         String line="";
         try {
             if (in!=null){
-            isr=new InputStreamReader(in,"utf-8");
+            isr=new InputStreamReader(in,"GB2312");
             BufferedReader br=new BufferedReader(isr);
             while ((line=br.readLine())!=null){
                 result+=line;
@@ -83,6 +84,8 @@ public class HttpLoad extends AsyncTask<String,Void,String> {
            // String result=HttpConnection(params[0]) ;
             Log.d("6666","本次请求的网址为:"+params[0]);
             String result=OKhttp(params[0]);
+          //  String result=HttpConnection(params[0]);
+
             return result;
         } catch (IOException e) {
             e.printStackTrace();

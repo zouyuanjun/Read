@@ -1,5 +1,7 @@
 package com.qiushu.chapter;
 
+import android.util.Log;
+
 import com.example.zou.chapter.Result;
 
 import org.jsoup.Jsoup;
@@ -17,14 +19,15 @@ public class QiushuParse {
     String content="5";
     Result result;
     ArrayList<String> arrayList=new ArrayList<>();
+    ArrayList<String> namelist=new ArrayList<>();
 
     public QiushuParse(String html) {
         this.html = html;
         Parse();
     }
 
-    public String getContent() {
-        return content;
+    public Result getResult() {
+        return result;
     }
 
     public void Parse(){
@@ -39,6 +42,13 @@ public class QiushuParse {
             String url=element1.attr("href");
             arrayList.add(url);
         }
-        result=new Result(content,arrayList.get(3),arrayList.get(1));
+        Elements el=document.getElementsByClass("text");
+        Elements elements2=el.select("a");
+        for (Element element1:elements2){
+            String name=element1.text();
+            namelist.add(name);
+            Log.d("6666","小说名称为"+name);
+        }
+        result=new Result(content,arrayList.get(2),arrayList.get(0),namelist.get(1));
     }
 }

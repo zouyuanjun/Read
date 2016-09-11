@@ -28,9 +28,7 @@ public class QiushuDirectoryParse {
         Elements elements1=elements.select("a");
         for (Element link:elements1){
             String url=link.attr("href");
-            Log.d("666666","目录网址为："+url);
             String text=link.text();
-            Log.d("666666","章节名称为："+text);
             ChapterDirectoryBean chapterDirectoryBean=new ChapterDirectoryBean(url,text);
             novelListbean.add(chapterDirectoryBean);
         }

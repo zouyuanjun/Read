@@ -20,15 +20,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:textSize="20sp"
-            android:background="#00000000"
-            android:text="回到上一次阅读的章节"
-            android:id="@+id/bt_lastread"
-            android:layout_gravity="center_horizontal" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,7 +30,7 @@
                 android:gravity="center_horizontal"
                 android:textSize="20sp"
                 android:paddingTop="20dp"
-                android:text="收藏的小说"/>
+                android:text="我的书架"/>
 
             <ListView
                 android:layout_width="match_parent"

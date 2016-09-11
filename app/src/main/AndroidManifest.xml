@@ -24,7 +24,9 @@
         </activity>
         <activity android:name="com.example.zou.novellist.NovelListActivity"></activity>
         <activity android:name="com.example.zou.chapter.ActivityChapter"></activity>
-        <activity android:name=".NameActivity"></activity>
+        <activity android:name=".NameActivity"
+            android:launchMode="singleTask">
+        </activity>
     </application>
 
 </manifest>

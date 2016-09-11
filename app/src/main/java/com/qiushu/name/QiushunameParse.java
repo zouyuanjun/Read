@@ -16,50 +16,55 @@ public class QiushunameParse {
     NewNovelBean newNovelBean;
     NameBean nameBean;
     ChapterBean chapterBean;
-    ArrayList<NameBean> nameBeanArrayList=new ArrayList<>();
-    ArrayList<ChapterBean> chapterBeanArrayList=new ArrayList<>();
-    static ArrayList<NewNovelBean> newnovelbean=new ArrayList();
+    ArrayList<NameBean> nameBeanArrayList = new ArrayList<>();
+    ArrayList<ChapterBean> chapterBeanArrayList = new ArrayList<>();
+    ArrayList<NewNovelBean> newnovelbean = new ArrayList();
     String html;
     String url;
     String name;
     String newchaptersurl;
     String newchaptersname;
+
     public QiushunameParse(String html) {
         this.html = html;
         httpparse(html);
     }
-    public void httpparse(String html){
 
-        Document doc= Jsoup.parse(html);
-        Element element=doc.getElementById("main");
+    public void httpparse(String html) {
+
+        Document doc = Jsoup.parse(html);
+        Element element = doc.getElementById("main");
         Elements els = element.getElementsByClass("t1");
         Elements els2 = element.getElementsByClass("t4");
-        Elements links=els.select("a");
-        for (Element el2:links){
-            url =el2.attr("href");
-            name=el2.text();
-            nameBean=new NameBean(url,name);
+        Elements links = els.select("a");
+        for (Element el2 : links) {
+            url = el2.attr("href");
+            name = el2.text();
+            name = name.substring(1, name.length() - 5);
+            nameBean = new NameBean(url, name);
             nameBeanArrayList.add(nameBean);
         }
-        Elements links2=els2.select("a");
-        for (Element el2:links2){
-            newchaptersurl=el2.attr("href");
-            newchaptersname=el2.text();
-            chapterBean=new ChapterBean(newchaptersurl,newchaptersname);
+        Elements links2 = els2.select("a");
+        for (Element el2 : links2) {
+            newchaptersurl = el2.attr("href");
+            newchaptersname = el2.text();
+            chapterBean = new ChapterBean(newchaptersurl, newchaptersname);
             chapterBeanArrayList.add(chapterBean);
         }
-        for (int i=0;i<nameBeanArrayList.size();i++){
-            String url=nameBeanArrayList.get(i).url;
-            String name=nameBeanArrayList.get(i).name;
-            String newchaptersurl="www.qiushu.cc/"+chapterBeanArrayList.get(i).newchaptersurl;
-            String newchaptersname=chapterBeanArrayList.get(i).newchaptersname;
-            newNovelBean=new NewNovelBean(url,name,newchaptersurl,newchaptersname);
+        for (int i = 0; i < nameBeanArrayList.size(); i++) {
+            String url = nameBeanArrayList.get(i).url;
+            String name = nameBeanArrayList.get(i).name;
+            String newchaptersurl = "www.qiushu.cc/" + chapterBeanArrayList.get(i).newchaptersurl;
+            String newchaptersname = chapterBeanArrayList.get(i).newchaptersname;
+            newNovelBean = new NewNovelBean(url, name, newchaptersurl, newchaptersname);
             newnovelbean.add(newNovelBean);
         }
+        nameBeanArrayList.clear();
+        chapterBeanArrayList.clear();
+    }
 
-        }
+    public  ArrayList<NewNovelBean> getNewnovelbean() {
 
-    public static ArrayList<NewNovelBean> getNewnovelbean(){
         return newnovelbean;
     }
 

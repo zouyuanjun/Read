@@ -2,19 +2,14 @@ package com.example.zou.start;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 
-import com.example.zou.chapter.ActivityChapter;
 import com.example.zou.read.NameActivity;
 import com.example.zou.read.R;
 import com.example.zou.sql.Novel;
@@ -34,8 +29,6 @@ public class StartActivity extends AppCompatActivity{
 
     public static Context context;
     public static StartActivity startActivity;
-    private SharedPreferences pref;
-    Button last_read;
     ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +47,33 @@ public class StartActivity extends AppCompatActivity{
                         startActivity(intent);
                         return true;
                     }
-                    if (menuItemId == R.id.action_wangjie) {
+                    if (menuItemId == R.id.action_langmanyanqing) {
                         Intent intent = new Intent(StartActivity.this, NameActivity.class);
-                        intent.putExtra("url","http://www.bxwx8.org/modules/article/index.php?fullflag=1");
+                        intent.putExtra("url","http://www.qiushu.cc/ls/24-1.html");
+                        startActivity(intent);
+                        return true;
+                    }
+                    if (menuItemId == R.id.action_fengyutongren) {
+                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
+                        intent.putExtra("url","http://www.qiushu.cc/ls/11-1.html");
+                        startActivity(intent);
+                        return true;
+                    }
+                    if (menuItemId == R.id.action_dongfangxuanhuang) {
+                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
+                        intent.putExtra("url","http://www.qiushu.cc/ls/12-1.html");
+                        startActivity(intent);
+                        return true;
+                    }
+                    if (menuItemId == R.id.action_xianxiaxiuzheng) {
+                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
+                        intent.putExtra("url","http://www.qiushu.cc/ls/3-1.html");
+                        startActivity(intent);
+                        return true;
+                    }
+                    if (menuItemId == R.id.action_guoshuwuxia) {
+                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
+                        intent.putExtra("url","http://www.qiushu.cc/ls/15-1.html");
                         startActivity(intent);
                         return true;
                     }
@@ -70,28 +87,6 @@ public class StartActivity extends AppCompatActivity{
         List<Novel> favoritenovellist =DataSupport.findAll(Novel.class);
         listView= (ListView) findViewById(R.id.listview);
         listView.setAdapter(new FavoriteListAdapter(favoritenovellist,listView));
-        last_read= (Button) findViewById(R.id.bt_lastread);
-        last_read.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pref=getSharedPreferences("lastread",MODE_PRIVATE);
-                    String chapterurl=pref.getString("chapter","0");
-                String baseurl=pref.getString("baseurl","0");
-                    Log.d("5555",chapterurl);
-                if (chapterurl.equals("0")){
-                    Intent intent=new Intent(StartActivity.this,NameActivity.class);
-                    intent.putExtra("url","http://www.qiushu.cc/ls/4-1.html");
-                    startActivity(intent);
-
-                }else {
-                    Intent intent = new Intent(StartActivity.this, ActivityChapter.class);
-                    intent.putExtra("newchapterurl", chapterurl);
-                    intent.putExtra("baseurl",baseurl);
-                    startActivity(intent);
-                    finish();
-                }
-            }
-        });
 
     }
     @Override

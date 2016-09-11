@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
         android:id="@+id/wait_list_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="等待获取列表数据..."/>
+        android:text="等待获取列表数据..."
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,4 +18,4 @@
         android:padding="5dp">
     </ListView>
 
-</LinearLayout>
+</RelativeLayout>

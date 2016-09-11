@@ -60,7 +60,7 @@ public class NovelListAdapter extends BaseAdapter{
                 url= novelListBean.get(position).chaptersurl;
                 Intent intent=new Intent(StartActivity.getContext(), ActivityChapter.class);
                 intent.putExtra("newchapterurl",baseurl+url);
-                intent.putExtra("baseurl",baseurl);
+                intent.putExtra("directoryurl",baseurl);
                 intent.putExtra("chapteraccount",chapteaccount);
                 StartActivity.getContext().startActivity(intent);
             }

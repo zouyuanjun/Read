@@ -2,7 +2,6 @@ package com.example.zou.chapter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -25,7 +24,7 @@ import com.example.zou.sql.Novel;
  */
 public class ActivityChapter extends Activity {
     Intent intent;
-    String baseurl="";
+    String directoryurl ="";
     String content;
     String url;
     TextView tv_content;
@@ -42,7 +41,7 @@ public class ActivityChapter extends Activity {
         setContentView(R.layout.activity_chapter);
         intent=getIntent();
         url=intent.getStringExtra("newchapterurl");
-        baseurl=intent.getStringExtra("baseurl");
+        directoryurl =intent.getStringExtra("directoryurl");
         chapteraccount=intent.getIntExtra("chapteraccount",0);
         tv_content= (TextView) findViewById(R.id.tv_content);
         bt_last= (Button) findViewById(R.id.bt_last_chapter);
@@ -57,7 +56,7 @@ public class ActivityChapter extends Activity {
         bt_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String string=baseurl+"./";
+                String string= directoryurl +"./";
                 if (string.equals(nexturl)){
                     Toast.makeText(StartActivity.getContext(),"已经到最后一章",Toast.LENGTH_LONG).show();
                 }else {
@@ -88,7 +87,7 @@ public class ActivityChapter extends Activity {
             Novel novel=new Novel();
             novel.setTitle(name);
             novel.setChapterurl(url);
-            novel.setListurl(baseurl);
+            novel.setListurl(directoryurl);
             novel.setChapteraccount(chapteraccount);
             if (novel.save()){
                 Toast.makeText(this,"收藏"+name+"成功",Toast.LENGTH_LONG).show();
@@ -99,35 +98,30 @@ public class ActivityChapter extends Activity {
         }
         if (id==R.id.action_getlist){
             Intent intent=new Intent(ActivityChapter.this, NovelListActivity.class);
-            intent.putExtra("novelurl",baseurl);
+            intent.putExtra("novelurl", directoryurl);
             startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
     }
     public void init(String url) {
-        SharedPreferences.Editor editor = getSharedPreferences("lastread",
-                MODE_PRIVATE).edit();
-        editor.putString("chapter", url);
-        editor.putString("baseurl",baseurl);
-        editor.commit();
+
         HttpLoad httpLoad = new HttpLoad();
         httpLoad.setDataDownloadListener(new HttpLoad.DataDownloadListener() {
             @Override
             public void dataDownloadSuccessfully(String result) {
-               QiushuParse chapterParse2=new QiushuParse(result);
-                content=chapterParse2.getContent();
-//                mresult=chapterParse.getResult();
-//                content=chapterParse.getResult().content;
-//                name=chapterParse.getResult().name;
-//                lasturl=baseurl+mresult.lasturl;
-//                nexturl=baseurl+mresult.nexturl;
-             //   Spanned spannedHtml = Html.fromHtml(content);
+               QiushuParse chapterParse=new QiushuParse(result);
+
+                mresult=chapterParse.getResult();
+                content=chapterParse.getResult().content;
+                name=chapterParse.getResult().name;
+                lasturl= directoryurl +mresult.lasturl;
+                nexturl= directoryurl +mresult.nexturl;
                 tv_content.setText(content);
                 tv_content.setMovementMethod(new ScrollingMovementMethod());
                 Log.d("55555","上一章地址"+lasturl);
                 Log.d("55555","下一章地址"+nexturl);
-                Log.d("55555","列表地址"+baseurl);
+                Log.d("55555","列表地址"+ directoryurl);
             }
 
             @Override

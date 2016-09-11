@@ -1,17 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-tools:context="com.example.zou.start.StartActivity">
-<item
-    android:id="@+id/action_doushiyanqing"
-    android:orderInCategory="100"
-    android:title="都市言情"
-    app:showAsAction="never" />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.zou.start.StartActivity">
     <item
-        android:id="@+id/action_wangjie"
+        android:id="@+id/action_doushiyanqing"
         android:orderInCategory="100"
-        android:title="全本小说"
+        android:title="都市言情"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_langmanyanqing"
+        android:orderInCategory="100"
+        android:title="浪漫言情"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_fengyutongren"
+        android:orderInCategory="100"
+        android:title="风雨同人"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_dongfangxuanhuang"
+        android:orderInCategory="100"
+        android:title="东方玄幻"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_xianxiaxiuzheng"
+        android:orderInCategory="100"
+        android:title="仙侠修真"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_guoshuwuxia"
+        android:orderInCategory="100"
+        android:title="国术武侠"
         app:showAsAction="never" />
 
 </menu>
