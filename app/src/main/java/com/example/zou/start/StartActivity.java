@@ -5,6 +5,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -34,74 +37,134 @@ public class StartActivity extends AppCompatActivity{
     public static Context context;
     public static StartActivity startActivity;
     ListView listView;
+    Toolbar toolbar;
+    public  String  url;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
     List<Novel> favoritenovellist;
     FavoriteListAdapter favoriteListAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_activity);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar= (Toolbar) findViewById(R.id.toolbar);
+        mDrawerLayout= (DrawerLayout) findViewById(R.id.dl_left);
         setSupportActionBar(toolbar);//toolbar支持
+
         if (toolbar != null) {
             toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     int menuItemId = item.getItemId();
-                    if (menuItemId == R.id.action_doushiyanqing) {
-                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
-                        intent.putExtra("url","http://www.qiushu.cc/ls/4-1.html");
-                        startActivity(intent);
-                        return true;
+                    switch (menuItemId){
+                        case R.id.action_doushiyanqing:{
+                            url="http://www.qiushu.cc/ls/4-1.html";
+                            break;
+                        }
+                        case R.id.action_langmanyanqing:{
+                            url="http://www.qiushu.cc/ls/24-1.html";
+                            break;
+                        }
+                        case R.id.action_fengyutongren:{
+                            url="http://www.qiushu.cc/ls/11-1.html";
+                            break;
+                        }
+                        case R.id.action_dongfangxuanhuang:{
+                            url="http://www.qiushu.cc/ls/12-1.html";
+                            break;
+                        }
+                        case R.id.action_xianxiaxiuzheng:{
+                            url="http://www.qiushu.cc/ls/3-1.html";
+                            break;
+                        }
+                        case R.id.action_guoshuwuxia:{
+                            url="http://www.doulaidu.com/dsort/3/1.html";
+                            break;
+                        }
+
                     }
-                    if (menuItemId == R.id.action_langmanyanqing) {
-                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
-                        intent.putExtra("url","http://www.qiushu.cc/ls/24-1.html");
-                        startActivity(intent);
-                        return true;
-                    }
-                    if (menuItemId == R.id.action_fengyutongren) {
-                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
-                        intent.putExtra("url","http://www.qiushu.cc/ls/11-1.html");
-                        startActivity(intent);
-                        return true;
-                    }
-                    if (menuItemId == R.id.action_dongfangxuanhuang) {
-                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
-                        intent.putExtra("url","http://www.qiushu.cc/ls/12-1.html");
-                        startActivity(intent);
-                        return true;
-                    }
-                    if (menuItemId == R.id.action_xianxiaxiuzheng) {
-                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
-                        intent.putExtra("url","http://www.qiushu.cc/ls/3-1.html");
-                        startActivity(intent);
-                        return true;
-                    }
-                    if (menuItemId == R.id.action_guoshuwuxia) {
-                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
-                        intent.putExtra("url","http://www.qiushu.cc/ls/15-1.html");
-                        startActivity(intent);
-                        return true;
-                    }
+                    Intent intent = new Intent(StartActivity.this, NameActivity.class);
+                    intent.putExtra("url",url);
+                    startActivity(intent);
                     return true;
+//                    if (menuItemId == R.id.action_doushiyanqing) {
+//                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
+//                        intent.putExtra("url","http://www.qiushu.cc/ls/4-1.html");
+//                        startActivity(intent);
+//                        return true;
+//                    }
+//                    if (menuItemId == R.id.action_langmanyanqing) {
+//                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
+//                        intent.putExtra("url","http://www.qiushu.cc/ls/24-1.html");
+//                        startActivity(intent);
+//                        return true;
+//                    }
+//                    if (menuItemId == R.id.action_fengyutongren) {
+//                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
+//                        intent.putExtra("url","http://www.qiushu.cc/ls/11-1.html");
+//                        startActivity(intent);
+//                        return true;
+//                    }
+//                    if (menuItemId == R.id.action_dongfangxuanhuang) {
+//                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
+//                        intent.putExtra("url","http://www.qiushu.cc/ls/12-1.html");
+//                        startActivity(intent);
+//                        return true;
+//                    }
+//                    if (menuItemId == R.id.action_xianxiaxiuzheng) {
+//                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
+//                        intent.putExtra("url","http://www.qiushu.cc/ls/3-1.html");
+//                        startActivity(intent);
+//                        return true;
+//                    }
+//                    if (menuItemId == R.id.action_guoshuwuxia) {
+//                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
+//                        intent.putExtra("url","http://www.qiushu.cc/ls/15-1.html");
+//                        startActivity(intent);
+//                        return true;
+//                    }
+     //               return true;
                 }
             });
         }
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.close,R.string.app_name) {
+            @Override
+            public void onDrawerOpened(View mDrawerLayout) {
+                super.onDrawerOpened(mDrawerLayout);
+                invalidateOptionsMenu();
+                return;
+            }
+            @Override
+            public void onDrawerClosed(View mDrawerLayout) {
+                super.onDrawerClosed(mDrawerLayout);
+                    return;
+            }
+        };
+        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //创建返回键，并实现打开关/闭监听
+
+        mDrawerToggle.syncState();
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
         context=this;
         startActivity=this;
      //   init();
-
     }
-
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // If the nav drawer is open, hide action items related to the content view
+     return true;
+    }
     @Override
     protected void onResume() {
+        super.onResume();
         SQLiteDatabase db= Connector.getDatabase();
         favoritenovellist =DataSupport.findAll(Novel.class);
         listView= (ListView) findViewById(R.id.listview);
         favoriteListAdapter=new FavoriteListAdapter(favoritenovellist,listView);
         listView.setAdapter(favoriteListAdapter);
-       // init();
-        super.onResume();
+
+        // init();
     }
 
     @Override

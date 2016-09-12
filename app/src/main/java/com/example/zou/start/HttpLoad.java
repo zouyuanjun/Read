@@ -37,7 +37,7 @@ public class HttpLoad extends AsyncTask<String,Void,String> {
         Response response = client.newCall(request).execute();
         if (response.isSuccessful()) {
             byte[] bytes = response.body().bytes(); //获取数据的bytes
-            String content = new String(bytes,"GB2312");
+            String content = new String(bytes,"GBK");
             return content;
         } else {
             throw new IOException("Unexpected code " + response);
@@ -98,13 +98,17 @@ public class HttpLoad extends AsyncTask<String,Void,String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         if (result!=null&&result.length()!=0){
-            dataDownloadListener.dataDownloadSuccessfully(result);
+            try {
+                dataDownloadListener.dataDownloadSuccessfully(result);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }else {
             dataDownloadListener.dataDownloadFailed();
         }
     }
     public static interface DataDownloadListener{
-        void dataDownloadSuccessfully(String result);
+        void dataDownloadSuccessfully(String result) throws UnsupportedEncodingException;
         void dataDownloadFailed();
     }
 }

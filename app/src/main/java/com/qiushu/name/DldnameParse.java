@@ -9,6 +9,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 
@@ -23,8 +24,14 @@ public class DldnameParse {
     String newchaptersurl;
     String newchaptersname;
     String baseurl="http://www.doulaidu.com/";
-    public DldnameParse(String html){
-        this.html=html;
+    public DldnameParse(String html) throws UnsupportedEncodingException {
+        String iso = new String(html.getBytes("GBK"),"ISO-8859-1");
+        String utf8=new String(iso.getBytes("ISO-8859-1"),"UTF-8");
+//        byte[] sour = html.getBytes("GBK");
+//        this.html=new String(sour,"ISO-8859-1");
+//        byte[] sour2 = html.getBytes("ISO-8859-1");
+//        this.html=new String(sour,"UTF-8");
+            this.html=utf8;
         parse();
     }
     public void parse(){

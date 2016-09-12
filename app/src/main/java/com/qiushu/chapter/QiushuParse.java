@@ -32,26 +32,29 @@ public class QiushuParse {
 
     public void Parse(){
         Document document= Jsoup.parse(html);
+        //获取小说正文
         Element element=document.getElementById("content");
         element.removeAttr("href");
         content=element.text();
-
+        //获取上下章节
         Elements elements=document.getElementsByClass("book_page");
         Elements elements1=elements.select("a");
         for (Element element1:elements1){
             String url=element1.attr("href");
             arrayList.add(url);
         }
+        //获取小说名
         Elements el=document.getElementsByClass("text");
         Elements elements2=el.select("a");
         for (Element element1:elements2){
             String name=element1.text();
             namelist.add(name);
         }
+        //获取小说章节名字
         Elements elements3=document.getElementsByClass("date");
         Elements elements4=elements3.select("h1");
         String chaptertitle=elements4.text();
 
-        result=new Result(content,arrayList.get(2),arrayList.get(0),namelist.get(1),chaptertitle);
+        result=new Result(content,arrayList.get(0),arrayList.get(1),namelist.get(1),chaptertitle);
     }
 }

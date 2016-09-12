@@ -13,7 +13,10 @@ import android.widget.TextView;
 
 import com.example.zou.start.HttpLoad;
 import com.example.zou.start.StartActivity;
+import com.qiushu.name.DldnameParse;
 import com.qiushu.name.QiushunameParse;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by zou on 2016/9/7.
@@ -23,6 +26,7 @@ public class NameActivity extends AppCompatActivity{
 
     ListView new_novel_list;
     TextView textView;
+    String siteurl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,42 +74,36 @@ public class NameActivity extends AppCompatActivity{
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     int menuItemId = item.getItemId();
-                    if (menuItemId == R.id.action_doushiyanqing) {
-                        Intent intent = new Intent(NameActivity.this, NameActivity.class);
-                        intent.putExtra("url", "http://www.qiushu.cc/ls/4-1.html");
-                        startActivity(intent);
-                        return true;
+                    switch (menuItemId){
+                        case R.id.action_doushiyanqing:{
+                            siteurl="http://www.qiushu.cc/ls/4-1.html";
+                            break;
+                        }
+                        case R.id.action_langmanyanqing:{
+                            siteurl="http://www.qiushu.cc/ls/24-1.html";
+                            break;
+                        }
+                        case R.id.action_fengyutongren:{
+                            siteurl="http://www.qiushu.cc/ls/11-1.html";
+                            break;
+                        }
+                        case R.id.action_dongfangxuanhuang:{
+                            siteurl="http://www.qiushu.cc/ls/12-1.html";
+                            break;
+                        }
+                        case R.id.action_xianxiaxiuzheng:{
+                            siteurl="http://www.qiushu.cc/ls/3-1.html";
+                            break;
+                        }
+                        case R.id.action_guoshuwuxia:{
+                            siteurl="http://www.qiushu.cc/ls/15-1.html";
+                            break;
+                        }
+
                     }
-                    if (menuItemId == R.id.action_langmanyanqing) {
-                        Intent intent = new Intent(NameActivity.this, NameActivity.class);
-                        intent.putExtra("url", "http://www.qiushu.cc/ls/24-1.html");
-                        startActivity(intent);
-                        return true;
-                    }
-                    if (menuItemId == R.id.action_fengyutongren) {
-                        Intent intent = new Intent(NameActivity.this, NameActivity.class);
-                        intent.putExtra("url", "http://www.qiushu.cc/ls/11-1.html");
-                        startActivity(intent);
-                        return true;
-                    }
-                    if (menuItemId == R.id.action_dongfangxuanhuang) {
-                        Intent intent = new Intent(NameActivity.this, NameActivity.class);
-                        intent.putExtra("url", "http://www.qiushu.cc/ls/12-1.html");
-                        startActivity(intent);
-                        return true;
-                    }
-                    if (menuItemId == R.id.action_xianxiaxiuzheng) {
-                        Intent intent = new Intent(NameActivity.this, NameActivity.class);
-                        intent.putExtra("url", "http://www.qiushu.cc/ls/3-1.html");
-                        startActivity(intent);
-                        return true;
-                    }
-                    if (menuItemId == R.id.action_guoshuwuxia) {
-                        Intent intent = new Intent(NameActivity.this, NameActivity.class);
-                        intent.putExtra("url", "http://www.qiushu.cc/ls/15-1.html");
-                        startActivity(intent);
-                        return true;
-                    }
+                    Intent intent = new Intent(NameActivity.this, NameActivity.class);
+                    intent.putExtra("url",siteurl);
+                    startActivity(intent);
                     return true;
                 }
             });
@@ -116,9 +114,11 @@ public class NameActivity extends AppCompatActivity{
         HttpLoad httpLoad = new HttpLoad();
         httpLoad.setDataDownloadListener(new HttpLoad.DataDownloadListener() {
             @Override
-            public void dataDownloadSuccessfully(String result) {
+            public void dataDownloadSuccessfully(String result) throws UnsupportedEncodingException {
                 QiushunameParse parse=new QiushunameParse(result);
                 NewNovelAdapter newNovelAdapter=new NewNovelAdapter(parse.getNewnovelbean());
+//                DldnameParse dldnameParse=new DldnameParse(result);
+//                NewNovelAdapter newNovelAdapter=new NewNovelAdapter(dldnameParse.getNewnovelbean());
                 new_novel_list.setAdapter(newNovelAdapter);
                 newNovelAdapter.notifyDataSetChanged();
                 textView.setVisibility(View.GONE);
