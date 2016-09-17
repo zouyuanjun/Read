@@ -55,6 +55,6 @@ public class QiushuParse {
         Elements elements4=elements3.select("h1");
         String chaptertitle=elements4.text();
 
-        result=new Result(content,arrayList.get(0),arrayList.get(1),namelist.get(1),chaptertitle);
+        result=new Result(content,arrayList.get(0),arrayList.get(2),namelist.get(1),chaptertitle);
     }
 }

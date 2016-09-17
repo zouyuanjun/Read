@@ -21,6 +21,7 @@ import okhttp3.Response;
  */
 public class HttpLoad extends AsyncTask<String,Void,String> {
     private  String result="";
+    String content;
     DataDownloadListener dataDownloadListener;
     public  HttpLoad(){
         Log.d("55555","异步任务创建");
@@ -37,7 +38,16 @@ public class HttpLoad extends AsyncTask<String,Void,String> {
         Response response = client.newCall(request).execute();
         if (response.isSuccessful()) {
             byte[] bytes = response.body().bytes(); //获取数据的bytes
-            String content = new String(bytes,"GBK");
+            switch (Setting.SOURCE){
+                case 1:  {
+                    content = new String(bytes,"GBK");
+                    break;
+                }
+                case 2:{
+                    content = new String(bytes,"UTF-8");
+                    break;
+                }
+            }
             return content;
         } else {
             throw new IOException("Unexpected code " + response);

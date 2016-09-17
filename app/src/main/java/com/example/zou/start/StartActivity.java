@@ -87,43 +87,6 @@ public class StartActivity extends AppCompatActivity{
                     intent.putExtra("url",url);
                     startActivity(intent);
                     return true;
-//                    if (menuItemId == R.id.action_doushiyanqing) {
-//                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
-//                        intent.putExtra("url","http://www.qiushu.cc/ls/4-1.html");
-//                        startActivity(intent);
-//                        return true;
-//                    }
-//                    if (menuItemId == R.id.action_langmanyanqing) {
-//                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
-//                        intent.putExtra("url","http://www.qiushu.cc/ls/24-1.html");
-//                        startActivity(intent);
-//                        return true;
-//                    }
-//                    if (menuItemId == R.id.action_fengyutongren) {
-//                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
-//                        intent.putExtra("url","http://www.qiushu.cc/ls/11-1.html");
-//                        startActivity(intent);
-//                        return true;
-//                    }
-//                    if (menuItemId == R.id.action_dongfangxuanhuang) {
-//                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
-//                        intent.putExtra("url","http://www.qiushu.cc/ls/12-1.html");
-//                        startActivity(intent);
-//                        return true;
-//                    }
-//                    if (menuItemId == R.id.action_xianxiaxiuzheng) {
-//                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
-//                        intent.putExtra("url","http://www.qiushu.cc/ls/3-1.html");
-//                        startActivity(intent);
-//                        return true;
-//                    }
-//                    if (menuItemId == R.id.action_guoshuwuxia) {
-//                        Intent intent = new Intent(StartActivity.this, NameActivity.class);
-//                        intent.putExtra("url","http://www.qiushu.cc/ls/15-1.html");
-//                        startActivity(intent);
-//                        return true;
-//                    }
-     //               return true;
                 }
             });
         }

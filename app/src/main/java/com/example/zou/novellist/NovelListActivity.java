@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.zou.start.Setting;
+import com.qiushu.chapterdirectory.DldDirectorytParse;
 import com.qiushu.chapterdirectory.QiushuDirectoryParse;
 import com.example.zou.start.HttpLoad;
 import com.example.zou.read.R;
@@ -22,6 +24,8 @@ public class NovelListActivity extends Activity{
     ListView listView;
     String url;
     TextView textView;
+    NovelListAdapter novelListAdapter;
+    ArrayList<ChapterDirectoryBean> novelListbean=new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +42,20 @@ public class NovelListActivity extends Activity{
         httpLoad.setDataDownloadListener(new HttpLoad.DataDownloadListener() {
             @Override
             public void dataDownloadSuccessfully(String result) {
-                QiushuDirectoryParse directoryParse=new QiushuDirectoryParse(result);
-                ArrayList<ChapterDirectoryBean> novelListbean=new ArrayList();
-                novelListbean=directoryParse.getNovelListbean();
-                listView.setAdapter(new NovelListAdapter(novelListbean,url));
+                switch (Setting.SOURCE){
+                    case 1:  {
+                        QiushuDirectoryParse directoryParse=new QiushuDirectoryParse(result);
+                        novelListbean=directoryParse.getNovelListbean();
+                        break;
+                    }
+                    case 2:{
+                        DldDirectorytParse dldDirectorytParse=new DldDirectorytParse(result);
+                        novelListbean=dldDirectorytParse.getnovelListbean();
+                        break;
+                    }
+                }
+                novelListAdapter=new NovelListAdapter(novelListbean,url);
+                listView.setAdapter(novelListAdapter);
                 textView.setVisibility(View.GONE);
             }
             @Override
