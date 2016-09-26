@@ -13,11 +13,7 @@
         android:orderInCategory="100"
         android:title="浪漫言情"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/action_fengyutongren"
-        android:orderInCategory="100"
-        android:title="风雨同人"
-        app:showAsAction="never" />
+
     <item
         android:id="@+id/action_dongfangxuanhuang"
         android:orderInCategory="100"
@@ -27,11 +23,6 @@
         android:id="@+id/action_xianxiaxiuzheng"
         android:orderInCategory="100"
         android:title="仙侠修真"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_guoshuwuxia"
-        android:orderInCategory="100"
-        android:title="国术武侠"
         app:showAsAction="never" />
 
 </menu>

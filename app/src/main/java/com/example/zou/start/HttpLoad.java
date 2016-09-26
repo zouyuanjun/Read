@@ -34,17 +34,18 @@ public class HttpLoad extends AsyncTask<String,Void,String> {
         Request.Builder builder=new  Request.Builder();
         builder.addHeader("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.2.6) Gecko/20100625 Firefox/3.6.6 Greatwqs");
         Request request = builder.url(url).build();
-
         Response response = client.newCall(request).execute();
         if (response.isSuccessful()) {
             byte[] bytes = response.body().bytes(); //获取数据的bytes
             switch (Setting.SOURCE){
                 case 1:  {
                     content = new String(bytes,"GBK");
+                    Log.d("6666","源代码为1");
                     break;
                 }
                 case 2:{
-                    content = new String(bytes,"UTF-8");
+                    Log.d("6666","源代码为2");
+                    content = new String(bytes,"utf-8");
                     break;
                 }
             }
@@ -90,12 +91,9 @@ public class HttpLoad extends AsyncTask<String,Void,String> {
     @Override
     protected String doInBackground(String... params) {
         try {
-            Log.d("55555","正在联网");
            // String result=HttpConnection(params[0]) ;
             Log.d("6666","本次请求的网址为:"+params[0]);
-            String result=OKhttp(params[0]);
-          //  String result=HttpConnection(params[0]);
-
+           String result=OKhttp(params[0]);
             return result;
         } catch (IOException e) {
             e.printStackTrace();

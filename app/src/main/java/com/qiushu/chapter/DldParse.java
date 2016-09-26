@@ -9,6 +9,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -48,7 +50,7 @@ public class DldParse {
         Elements title=doc.getElementsByClass("con_top");
         Elements title2=title.select("a[title]");
         String titlestring=title2.text();
-        Log.d("55555","小说标题是"+titlestring);
+
        result=new Result(resultString,lasturl,nexturl,titlestring,titlestring);
     }
 

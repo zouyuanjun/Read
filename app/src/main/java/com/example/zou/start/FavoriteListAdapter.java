@@ -1,6 +1,8 @@
 package com.example.zou.start;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,8 @@ import com.example.zou.chapter.ActivityChapter;
 import com.example.zou.read.R;
 import com.example.zou.sql.Novel;
 import com.example.zou.start.StartActivity;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
@@ -31,7 +35,10 @@ public class FavoriteListAdapter extends BaseAdapter{
         this.listView=listView;
 
     }
+    public void refresh(){
+        favoritnovel =DataSupport.findAll(Novel.class);
 
+    }
     @Override
     public int getCount() {
         return favoritnovel.size();
@@ -66,6 +73,7 @@ public class FavoriteListAdapter extends BaseAdapter{
                         .getTitle(),Toast.LENGTH_SHORT).show();
             }
         });
+
         return convertView;
     }
 }

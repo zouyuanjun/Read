@@ -23,15 +23,10 @@ public class DldnameParse {
     String name;
     String newchaptersurl;
     String newchaptersname;
-    String baseurl="http://www.doulaidu.com/";
+    String baseurl="http://www.doulaidu.com";
     public DldnameParse(String html) throws UnsupportedEncodingException {
-        String iso = new String(html.getBytes("GBK"),"ISO-8859-1");
-        String utf8=new String(iso.getBytes("ISO-8859-1"),"UTF-8");
-//        byte[] sour = html.getBytes("GBK");
-//        this.html=new String(sour,"ISO-8859-1");
-//        byte[] sour2 = html.getBytes("ISO-8859-1");
-//        this.html=new String(sour,"UTF-8");
-            this.html=utf8;
+
+            this.html=html;
         parse();
     }
     public void parse(){

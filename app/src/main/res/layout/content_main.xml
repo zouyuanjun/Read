@@ -19,6 +19,11 @@
         android:background="?attr/colorPrimary">
     </android.support.v7.widget.Toolbar>
   </android.support.design.widget.AppBarLayout>
+  <android.support.v4.widget.SwipeRefreshLayout
+      android:id="@+id/sr_layout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@+id/appbarlayout">
   <TextView
       android:id="@+id/wait_newlist_tv"
       android:layout_width="match_parent"
@@ -35,4 +40,5 @@
       android:focusable="false"
       android:padding="1dp">
   </ListView>
+  </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

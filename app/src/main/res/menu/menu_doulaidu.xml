@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_doushiyanqing_doulaidu"
+        android:orderInCategory="100"
+        android:title="都市言情"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_langmanyanqing_doulaidu"
+        android:orderInCategory="100"
+        android:title="浪漫言情"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_fengyutongren_doulaidu"
+        android:orderInCategory="100"
+        android:title="风雨同人"
+        app:showAsAction="never" />
+</menu>

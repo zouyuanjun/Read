@@ -3,6 +3,7 @@ package com.example.zou.start;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
@@ -16,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.zou.read.NameActivity;
 import com.example.zou.read.R;
@@ -29,16 +32,17 @@ import java.util.List;
 /**
  * Created by zou on 2016/7/15.
  */
-public class StartActivity extends AppCompatActivity{
+public class StartActivity extends AppCompatActivity {
     public static Context getContext() {
         return context;
     }
-
     public static Context context;
     public static StartActivity startActivity;
     ListView listView;
     Toolbar toolbar;
     public  String  url;
+    TextView tv_qiushuwang;
+    TextView tv_doulaidu;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     List<Novel> favoritenovellist;
@@ -47,8 +51,15 @@ public class StartActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_activity);
+        Setting.SOURCE=readsource();
         toolbar= (Toolbar) findViewById(R.id.toolbar);
         mDrawerLayout= (DrawerLayout) findViewById(R.id.dl_left);
+        if (Setting.SOURCE==1){
+            toolbar.setTitle("求书网");
+        }
+        if (Setting.SOURCE==2){
+            toolbar.setTitle("都来读");
+        }
         setSupportActionBar(toolbar);//toolbar支持
 
         if (toolbar != null) {
@@ -56,31 +67,36 @@ public class StartActivity extends AppCompatActivity{
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     int menuItemId = item.getItemId();
-                    switch (menuItemId){
-                        case R.id.action_doushiyanqing:{
-                            url="http://www.qiushu.cc/ls/4-1.html";
-                            break;
-                        }
-                        case R.id.action_langmanyanqing:{
-                            url="http://www.qiushu.cc/ls/24-1.html";
-                            break;
-                        }
-                        case R.id.action_fengyutongren:{
-                            url="http://www.qiushu.cc/ls/11-1.html";
-                            break;
-                        }
-                        case R.id.action_dongfangxuanhuang:{
-                            url="http://www.qiushu.cc/ls/12-1.html";
-                            break;
-                        }
-                        case R.id.action_xianxiaxiuzheng:{
-                            url="http://www.qiushu.cc/ls/3-1.html";
-                            break;
-                        }
-                        case R.id.action_guoshuwuxia:{
-                            url="http://www.doulaidu.com/dsort/3/1.html";
-                            break;
-                        }
+                                     switch (menuItemId){
+                            case R.id.action_doushiyanqing:{
+                                if (Setting.SOURCE==1){
+                                    url="http://www.qiushu.cc/ls/4-1.html";
+                                }
+                                else url="http://www.doulaidu.com/dsort/3/1.html";
+                                break;
+                            }
+                            case R.id.action_langmanyanqing:{
+                                if (Setting.SOURCE==1){
+                                    url="http://www.qiushu.cc/ls/24-1.html";
+                                }
+                                else url="http://www.doulaidu.com/dsort/7/1.html";
+                                break;
+                            }
+
+                            case R.id.action_dongfangxuanhuang:{
+                                if (Setting.SOURCE==1) {
+                                    url = "http://www.qiushu.cc/ls/12-1.html";
+                                }
+                                else url="http://www.doulaidu.com/dsort/1/1.html";
+                                break;
+                            }
+                            case R.id.action_xianxiaxiuzheng:{
+                                if (Setting.SOURCE==1) {
+                                    url = "http://www.qiushu.cc/ls/3-1.html";
+                                }
+                                else url="http://www.doulaidu.com/dsort/2/1.html";
+                                break;
+                            }
 
                     }
                     Intent intent = new Intent(StartActivity.this, NameActivity.class);
@@ -89,17 +105,20 @@ public class StartActivity extends AppCompatActivity{
                     return true;
                 }
             });
+
         }
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.close,R.string.app_name) {
             @Override
             public void onDrawerOpened(View mDrawerLayout) {
                 super.onDrawerOpened(mDrawerLayout);
-                invalidateOptionsMenu();
+
+                mDrawerLayout.setClickable(true);
                 return;
             }
             @Override
             public void onDrawerClosed(View mDrawerLayout) {
                 super.onDrawerClosed(mDrawerLayout);
+                invalidateOptionsMenu();
                     return;
             }
         };
@@ -108,10 +127,9 @@ public class StartActivity extends AppCompatActivity{
         //创建返回键，并实现打开关/闭监听
 
         mDrawerToggle.syncState();
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
         context=this;
         startActivity=this;
-     //   init();
     }
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -122,18 +140,39 @@ public class StartActivity extends AppCompatActivity{
     protected void onResume() {
         super.onResume();
         SQLiteDatabase db= Connector.getDatabase();
-        favoritenovellist =DataSupport.findAll(Novel.class);
         listView= (ListView) findViewById(R.id.listview);
+        favoritenovellist =DataSupport.findAll(Novel.class);
+        tv_qiushuwang= (TextView) findViewById(R.id.dl_tv_qiushuwang);
+        tv_qiushuwang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportActionBar().setTitle(tv_qiushuwang.getText());
+                mDrawerLayout.closeDrawers();
+                writesource(1);
+                Setting.SOURCE=readsource();
+                Toast.makeText(StartActivity.getContext(),"选择源：求书网",Toast.LENGTH_SHORT).show();
+                }
+        });
+        tv_doulaidu= (TextView) findViewById(R.id.dl_tv_doulaidu);
+        tv_doulaidu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportActionBar().setTitle(tv_doulaidu.getText());
+                mDrawerLayout.closeDrawers();
+                writesource(2);
+                Setting.SOURCE=readsource();
+                Toast.makeText(StartActivity.getContext(),"选择源：都来读",Toast.LENGTH_SHORT).show();
+            }
+        });
         favoriteListAdapter=new FavoriteListAdapter(favoritenovellist,listView);
         listView.setAdapter(favoriteListAdapter);
-
-        // init();
+        init();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_startactivity, menu);
+        getMenuInflater().inflate(R.menu.menu_qiushuwang, menu);
         return true;
     }
 
@@ -162,12 +201,27 @@ public class StartActivity extends AppCompatActivity{
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         DataSupport.deleteAll(Novel.class,"title=?",name);
+                        favoriteListAdapter.refresh();
                         favoriteListAdapter.notifyDataSetChanged();
+                        Toast.makeText(StartActivity.getContext(),"<"+name+" >已删除",Toast.LENGTH_SHORT).show();
                     }
                 }).show();
-                return false;
+
+                return true;
             }
         });
 
+    }
+
+  public void writesource(int SOURCE){
+      SharedPreferences sharedPreferences=getSharedPreferences("setting",MODE_PRIVATE);
+      SharedPreferences.Editor editor=sharedPreferences.edit();
+      editor.putInt("source",SOURCE);
+      editor.commit();
+  }
+    public int readsource(){
+        SharedPreferences sharedPreferences=getSharedPreferences("setting",MODE_PRIVATE);
+        int source=sharedPreferences.getInt("source",1);
+        return source;
     }
 }

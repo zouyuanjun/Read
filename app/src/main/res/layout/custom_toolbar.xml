@@ -48,10 +48,12 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:padding="10dp"
+                android:id="@+id/dl_tv_qiushuwang"
                 android:text="求书网"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/dl_tv_doulaidu"
                 android:textSize="20sp"
                 android:padding="10dp"
                 android:text="都来读"/>

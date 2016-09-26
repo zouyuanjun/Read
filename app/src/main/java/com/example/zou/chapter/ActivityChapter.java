@@ -12,12 +12,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.zou.read.NewNovelAdapter;
+import com.example.zou.start.Setting;
+import com.qiushu.chapter.DldParse;
 import com.qiushu.chapter.QiushuParse;
 import com.example.zou.novellist.NovelListActivity;
 import com.example.zou.start.HttpLoad;
 import com.example.zou.read.R;
 import com.example.zou.start.StartActivity;
 import com.example.zou.sql.Novel;
+import com.qiushu.name.DldnameParse;
+import com.qiushu.name.QiushunameParse;
 
 /**
  * Created by zou on 2016/7/14.
@@ -112,11 +117,23 @@ public class ActivityChapter extends Activity {
         httpLoad.setDataDownloadListener(new HttpLoad.DataDownloadListener() {
             @Override
             public void dataDownloadSuccessfully(String result) {
-               QiushuParse chapterParse=new QiushuParse(result);
+                switch (Setting.SOURCE) {
+                    case 1: {
+                        Log.d("6666","解析代码为1");
+                        QiushuParse chapterParse=new QiushuParse(result);
+                        mresult=chapterParse.getResult();
+                        break;
+                    }
+                    case 2: {
+                        Log.d("6666","解析代码为2");
+                        DldParse dldParse=new DldParse(result);
+                        mresult=dldParse.getResult();
+                        break;
+                    }
+                }
 
-                mresult=chapterParse.getResult();
-                content=chapterParse.getResult().content;
-                name=chapterParse.getResult().name;
+                content= mresult.content;
+                name= mresult.name;
                 lasturl= directoryurl +mresult.lasturl;
                 nexturl= directoryurl +mresult.nexturl;
                 chaptertitle=mresult.chaptertitle;
