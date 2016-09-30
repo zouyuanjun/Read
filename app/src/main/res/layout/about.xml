@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="声明：本软件为非盈利性免费软件，内容均为互联网上搜集整理，本软件不提供以及保存任何内容。如有侵犯到您的权益，请联系作者删除。
+        如您在使用中有任何关于本软件的功能建议，问题等等，也可通过如果如果方式联系作者。
+        本软件目前还在不断更新之中，这是第一个版本，未来将支持更多的网站以及功能，感谢关注。
+        联系方式：
+        Email：zouyaunjunli@foxmail.com
+        QQ：2948992828"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_horizontal"
+        android:padding="20dp"
+        android:autoLink="all"
+        android:linksClickable="true"
+        android:id="@+id/tv_about" />
+</RelativeLayout>

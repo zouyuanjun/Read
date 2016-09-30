@@ -43,6 +43,7 @@ public class StartActivity extends AppCompatActivity {
     public  String  url;
     TextView tv_qiushuwang;
     TextView tv_doulaidu;
+    TextView tv_about;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     List<Novel> favoritenovellist;
@@ -162,6 +163,14 @@ public class StartActivity extends AppCompatActivity {
                 writesource(2);
                 Setting.SOURCE=readsource();
                 Toast.makeText(StartActivity.getContext(),"选择源：都来读",Toast.LENGTH_SHORT).show();
+            }
+        });
+        tv_about= (TextView) findViewById(R.id.dl_tv_about);
+        tv_about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(StartActivity.this,About.class);
+                startActivity(intent);
             }
         });
         favoriteListAdapter=new FavoriteListAdapter(favoritenovellist,listView);

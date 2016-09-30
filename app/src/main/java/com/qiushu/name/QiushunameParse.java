@@ -30,13 +30,20 @@ public class QiushunameParse {
         httpparse(html);
     }
 
-    public void httpparse(String html) {
+    public void httpparse(String html)throws NullPointerException {
 
         Document doc = Jsoup.parse(html);
-        Element element = doc.getElementById("main");
-        Elements els = element.getElementsByClass("t1");
-        Elements els2 = element.getElementsByClass("t4");
-        Elements links = els.select("a");
+        Elements els2 = null;
+        Elements links = null;
+        try {
+            Element element = doc.getElementById("main");
+            Elements els = element.getElementsByClass("t1");
+            els2 = element.getElementsByClass("t4");
+            links = els.select("a");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
         for (Element el2 : links) {
             url = el2.attr("href");
             name = el2.text();

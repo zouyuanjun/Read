@@ -37,6 +37,14 @@ public class NameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Intent l = getIntent();
         url = l.getStringExtra("url");
+        swipeRefreshLayout= (SwipeRefreshLayout) findViewById(R.id.sr_layout);
+        swipeRefreshLayout.setColorSchemeColors(R.color.gray,R.color.darkgoldenrod,R.color.colorPrimary,R.color.darkgrey);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                init(url);
+            }
+        });
         init(url);
     }
 
@@ -44,7 +52,14 @@ public class NameActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         url = intent.getStringExtra("url");
         init(url);
-        swipeRefreshLayout= (SwipeRefreshLayout) findViewById(R.id.sr_layout);
+
+        swipeRefreshLayout.setColorSchemeColors(R.color.gray,R.color.darkgoldenrod,R.color.colorPrimary,R.color.darkgrey);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                init(url);
+            }
+        });
         super.onNewIntent(intent);
     }
 
@@ -147,7 +162,7 @@ public class NameActivity extends AppCompatActivity {
                         break;
                     }
                 }
-
+                swipeRefreshLayout.setRefreshing(false);
                 new_novel_list.setAdapter(newNovelAdapter);
                 newNovelAdapter.notifyDataSetChanged();
                 textView.setVisibility(View.GONE);
@@ -155,7 +170,7 @@ public class NameActivity extends AppCompatActivity {
 
             @Override
             public void dataDownloadFailed() {
-                textView.setText("O豁，服务器炸了，过一会再来");
+                textView.setText("O豁，服务器炸了，过一会再来或者下拉刷新试试");
             }
         });
         httpLoad.execute(url);

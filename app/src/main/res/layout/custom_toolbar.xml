@@ -62,7 +62,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:padding="10dp"
-                android:text="关于"/>/>
+                android:id="@+id/dl_tv_about"
+                android:text="关于"/>
         </LinearLayout>
 
     </android.support.v4.widget.DrawerLayout>
