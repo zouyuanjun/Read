@@ -228,7 +228,7 @@ public class StartActivity extends AppCompatActivity {
       editor.putInt("source",SOURCE);
       editor.commit();
   }
-    public int readsource(){
+    public  int readsource(){
         SharedPreferences sharedPreferences=getSharedPreferences("setting",MODE_PRIVATE);
         int source=sharedPreferences.getInt("source",1);
         return source;

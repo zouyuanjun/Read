@@ -1,6 +1,4 @@
-package com.qiushu.chapter;
-
-import android.util.Log;
+package com.site.chapter;
 
 import com.example.zou.chapter.Result;
 
@@ -8,9 +6,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 /**
@@ -31,7 +26,7 @@ public class DldParse {
     public void parse(){
         Document doc = Jsoup.parse(html,"http://www.doulaidu.com/");
         Element content = doc.getElementById("content");
-        resultString =content.text();
+        resultString =content.toString();
 
         Element last=doc.getElementById("A1");
         Elements links2 = last.select("a[href]");

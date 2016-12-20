@@ -1,6 +1,4 @@
-package com.qiushu.chapterdirectory;
-
-import android.util.Log;
+package com.site.chapterdirectory;
 
 import com.example.zou.novellist.ChapterDirectoryBean;
 

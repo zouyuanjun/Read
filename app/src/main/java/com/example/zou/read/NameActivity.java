@@ -6,16 +6,20 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.zou.start.HttpLoad;
 import com.example.zou.start.Setting;
-import com.qiushu.name.DldnameParse;
-import com.qiushu.name.QiushunameParse;
+import com.example.zou.start.StartActivity;
+import com.site.name.DldnameParse;
+import com.site.name.QiushunameParse;
 
 import java.io.UnsupportedEncodingException;
 
@@ -30,6 +34,9 @@ public class NameActivity extends AppCompatActivity {
     String siteurl;
     SwipeRefreshLayout swipeRefreshLayout;
     NewNovelAdapter newNovelAdapter;
+    private  View loadmoreView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +53,44 @@ public class NameActivity extends AppCompatActivity {
             }
         });
         init(url);
+        loadmoreView= LayoutInflater.from(this).inflate(R.layout.loadmore,null);
+        //解决listview和swipeRefreshLayout的滑动冲突问题，根据list view是否在第一行判定是否下拉刷新
+        new_novel_list.addFooterView(loadmoreView);
+        new_novel_list.setOnScrollListener(new AbsListView.OnScrollListener() {
+            private int visibleLastIndex = 0;   //最后的可视项索引
+            public int visibleItemCount;       // 当前窗口可见项总数
+            int index=1;
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+                int itemsLastIndex =  newNovelAdapter.getCount() - 1;    //数据集最后一项的索引
+                int lastIndex = itemsLastIndex + 1;
+                String lasturl=url;//加上底部的loadMoreView项
+                if (i == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && visibleLastIndex == lastIndex) {
+                    //如果是自动加载,可以在这里放置异步加载数据的代码
+                    if (Setting.SOURCE == 1) {
+                        int id = url.indexOf("-");
+
+                        int length = url.length();
+                        lasturl = url.substring(0, id + 1) + String.valueOf(index + 1) + url.substring(id + 2, length);
+                        index++;
+                        init(lasturl);
+                        Log.d("555555", "loading..." + lasturl);
+                    } else {
+                        Toast.makeText(StartActivity.getContext(), "没有更多啦", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (firstVisibleItem == 0)
+                    swipeRefreshLayout.setEnabled(true);
+                else
+                    swipeRefreshLayout.setEnabled(false);
+                this.visibleItemCount = visibleItemCount;
+                visibleLastIndex = firstVisibleItem + visibleItemCount - 1;
+            }
+        });
     }
 
     @Override

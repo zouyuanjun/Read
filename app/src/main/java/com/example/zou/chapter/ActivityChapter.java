@@ -3,6 +3,7 @@ package com.example.zou.chapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
@@ -12,17 +13,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.zou.read.NewNovelAdapter;
 import com.example.zou.start.Setting;
-import com.qiushu.chapter.DldParse;
-import com.qiushu.chapter.QiushuParse;
+import com.site.chapter.DldParse;
+import com.site.chapter.QiushuParse;
 import com.example.zou.novellist.NovelListActivity;
 import com.example.zou.start.HttpLoad;
 import com.example.zou.read.R;
 import com.example.zou.start.StartActivity;
 import com.example.zou.sql.Novel;
-import com.qiushu.name.DldnameParse;
-import com.qiushu.name.QiushunameParse;
 
 /**
  * Created by zou on 2016/7/14.
@@ -137,7 +135,7 @@ public class ActivityChapter extends Activity {
                 lasturl= directoryurl +mresult.lasturl;
                 nexturl= directoryurl +mresult.nexturl;
                 chaptertitle=mresult.chaptertitle;
-                tv_content.setText(content);
+                tv_content.setText(Html.fromHtml(content));
                 tv_content.setMovementMethod(new ScrollingMovementMethod());
                 Novel updatanovel=new Novel();
                 updatanovel.setChapterurl(url);

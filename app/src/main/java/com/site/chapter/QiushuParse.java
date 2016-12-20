@@ -1,6 +1,4 @@
-package com.qiushu.chapter;
-
-import android.util.Log;
+package com.site.chapter;
 
 import com.example.zou.chapter.Result;
 
@@ -35,7 +33,7 @@ public class QiushuParse {
         //获取小说正文
         Element element=document.getElementById("content");
         element.removeAttr("href");
-        content=element.text();
+        content=element.toString();
         //获取上下章节
         Elements elements=document.getElementsByClass("book_page");
         Elements elements1=elements.select("a");

@@ -6,14 +6,15 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.zou.start.Setting;
-import com.qiushu.chapterdirectory.DldDirectorytParse;
-import com.qiushu.chapterdirectory.QiushuDirectoryParse;
-import com.example.zou.start.HttpLoad;
 import com.example.zou.read.R;
+import com.example.zou.start.HttpLoad;
+import com.example.zou.start.Setting;
+import com.site.chapterdirectory.DldDirectorytParse;
+import com.site.chapterdirectory.QiushuDirectoryParse;
 
 import java.util.ArrayList;
 
@@ -46,6 +47,22 @@ public class NovelListActivity extends Activity{
         listView= (ListView) findViewById(R.id.lv_novel_list);
         textView= (TextView) findViewById(R.id.wait_list_tv);
         init();
+
+        //解决listview和swipeRefreshLayout的滑动冲突问题，根据list view是否在第一行判定是否下拉刷新
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (firstVisibleItem == 0)
+                    swipeRefreshLayout.setEnabled(true);
+                else
+                    swipeRefreshLayout.setEnabled(false);
+            }
+        });
     }
     public void init() {
         HttpLoad httpLoad = new HttpLoad();

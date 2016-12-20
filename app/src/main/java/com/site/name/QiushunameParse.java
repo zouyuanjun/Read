@@ -1,4 +1,4 @@
-package com.qiushu.name;
+package com.site.name;
 
 import com.example.zou.read.NewNovelBean;
 
