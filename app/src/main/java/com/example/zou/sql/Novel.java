@@ -13,6 +13,16 @@ public class Novel extends DataSupport{
     private int chapteraccount;
     private String chaptertitle;
 
+    public int getSource() {
+        return source;
+    }
+
+    public void setSource(int source) {
+        this.source = source;
+    }
+
+    private int source;
+
     public String getChaptertitle() {
         return chaptertitle;
     }

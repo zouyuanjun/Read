@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.zou.chapter.ActivityChapter;
 import com.example.zou.read.R;
+import com.example.zou.start.Setting;
 import com.example.zou.start.StartActivity;
 
 import java.util.ArrayList;
@@ -62,6 +63,7 @@ public class NovelListAdapter extends BaseAdapter{
                 intent.putExtra("newchapterurl",baseurl+url);
                 intent.putExtra("directoryurl",baseurl);
                 intent.putExtra("chapteraccount",chapteaccount);
+                intent.putExtra("source", Setting.getSource());
                 StartActivity.getContext().startActivity(intent);
             }
         });

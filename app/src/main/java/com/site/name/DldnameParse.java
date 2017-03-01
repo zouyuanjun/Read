@@ -32,7 +32,7 @@ public class DldnameParse {
     public void parse(){
         Document doc = Jsoup.parse(html,"http://www.doulaidu.com/");
         Element doc1 = doc.getElementById("newscontent");
-        Elements content = doc1.getElementsByClass("l");
+        Elements content = doc.getElementsByClass("l");
         Elements links1=content.select("li");
         Elements links = links1.select("a[href]");
         int i=1;
@@ -63,8 +63,6 @@ public class DldnameParse {
                 newnovelbean.add(newNovelBean);
             }
 
-//            Log.d("55555","获取的属性："+linkHref);
-//            Log.d("55555","获取的内容："+linkText);
         }
     }
     public ArrayList<NewNovelBean> getNewnovelbean(){

@@ -1,5 +1,7 @@
 package com.site.chapter;
 
+import android.util.Log;
+
 import com.example.zou.chapter.Result;
 
 import org.jsoup.Jsoup;
@@ -52,7 +54,7 @@ public class QiushuParse {
         Elements elements3=document.getElementsByClass("date");
         Elements elements4=elements3.select("h1");
         String chaptertitle=elements4.text();
-
+        Log.d("6666","奇书网章节地址"+arrayList.get(0));
         result=new Result(content,arrayList.get(0),arrayList.get(2),namelist.get(1),chaptertitle);
     }
 }

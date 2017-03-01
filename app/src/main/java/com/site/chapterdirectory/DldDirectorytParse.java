@@ -23,7 +23,7 @@ public class DldDirectorytParse {
     }
     public void parse(){
         Document doc = Jsoup.parse(html,"http://www.doulaidu.com/");
-        Element doc1 = doc.getElementById("list");
+        Elements doc1 = doc.getElementsByClass("listmain");
         Elements links1=doc1.select("dl");
         Elements links = links1.select("a[href]");
         for (Element link : links) {

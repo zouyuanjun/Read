@@ -1,8 +1,6 @@
 package com.example.zou.start;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +13,6 @@ import android.widget.Toast;
 import com.example.zou.chapter.ActivityChapter;
 import com.example.zou.read.R;
 import com.example.zou.sql.Novel;
-import com.example.zou.start.StartActivity;
 
 import org.litepal.crud.DataSupport;
 
@@ -68,6 +65,7 @@ public class FavoriteListAdapter extends BaseAdapter{
                 intent.putExtra("newchapterurl",favoritnovel.get(position).getChapterurl());
                 intent.putExtra("directoryurl",favoritnovel.get(position).getListurl());
                 intent.putExtra("chapteraccount",favoritnovel.get(position).getChapteraccount());
+                intent.putExtra("source",favoritnovel.get(position).getSource());
                 StartActivity.getContext().startActivity(intent);
                 Toast.makeText(StartActivity.getContext(),"选择了"+favoritnovel.get(position)
                         .getTitle(),Toast.LENGTH_SHORT).show();

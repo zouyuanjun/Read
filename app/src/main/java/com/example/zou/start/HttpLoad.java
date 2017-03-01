@@ -37,7 +37,7 @@ public class HttpLoad extends AsyncTask<String,Void,String> {
         Response response = client.newCall(request).execute();
         if (response.isSuccessful()) {
             byte[] bytes = response.body().bytes(); //获取数据的bytes
-            switch (Setting.SOURCE){
+            switch (Setting.getSource()){
                 case 1:  {
                     content = new String(bytes,"GBK");
                     Log.d("6666","源代码为1");
@@ -45,7 +45,7 @@ public class HttpLoad extends AsyncTask<String,Void,String> {
                 }
                 case 2:{
                     Log.d("6666","源代码为2");
-                    content = new String(bytes,"utf-8");
+                    content = new String(bytes,"GBK");
                     break;
                 }
             }
