@@ -22,19 +22,12 @@
                     android:background="?attr/colorPrimary">
                 </android.support.v7.widget.Toolbar>
             </android.support.design.widget.AppBarLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textSize="20sp"
-                android:paddingTop="20dp"
-                android:text="我的书架"/>
 
-            <ListView
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/start_rv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/listview">
-            </ListView>
+                android:layout_height="match_parent" />
         </LinearLayout>
         <!--侧滑菜单-->
         <LinearLayout

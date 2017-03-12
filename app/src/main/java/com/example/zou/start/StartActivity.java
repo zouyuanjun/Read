@@ -47,7 +47,7 @@ public class StartActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     List<Novel> favoritenovellist;
-    FavoriteListAdapter favoriteListAdapter;
+    FavoriteAdapter favoriteAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
