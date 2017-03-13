@@ -8,7 +8,7 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by li on 2016/9/12.
  */
 public class Setting {
-    public static int SOURCE=2;//1，求书网；2都来读
+    public  int SOURCE=1;//1，求书网；2都来读
     public static int getSource(){
         SharedPreferences sharedPreferences=StartActivity.getContext().getSharedPreferences("setting",MODE_PRIVATE);
         int source=sharedPreferences.getInt("source",1);

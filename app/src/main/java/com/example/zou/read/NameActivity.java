@@ -67,7 +67,7 @@ public class NameActivity extends AppCompatActivity {
                 String lasturl=url;//加上底部的loadMoreView项
                 if (i == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && visibleLastIndex == lastIndex) {
                     //如果是自动加载,可以在这里放置异步加载数据的代码
-                    if (Setting.SOURCE == 1) {
+                    if (Setting.getSource() == 1) {
                         int id = url.indexOf("-");
 
                         int length = url.length();
@@ -134,10 +134,10 @@ public class NameActivity extends AppCompatActivity {
 
     public void init(String url) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.name_activitytoolbar);
-        if (Setting.SOURCE==1){
+        if (Setting.getSource()==1){
             toolbar.setTitle("求书网");
         }
-        if (Setting.SOURCE==2){
+        if (Setting.getSource()==2){
             toolbar.setTitle("都来读");
         }
         setSupportActionBar(toolbar);//toolbar支持
@@ -148,14 +148,14 @@ public class NameActivity extends AppCompatActivity {
                     int menuItemId = item.getItemId();
                     switch (menuItemId){
                         case R.id.action_doushiyanqing:{
-                            if (Setting.SOURCE==1){
+                            if (Setting.getSource()==1){
                                 siteurl="http://www.qiushu.cc/ls/4-1.html";
                             }
                             else siteurl="http://www.doulaidu.com/dsort/3/1.html";
                             break;
                         }
                         case R.id.action_langmanyanqing:{
-                            if (Setting.SOURCE==1){
+                            if (Setting.getSource()==1){
                                 siteurl="http://www.qiushu.cc/ls/24-1.html";
                             }
                             else siteurl="http://www.doulaidu.com/dsort/7/1.html";
@@ -163,14 +163,14 @@ public class NameActivity extends AppCompatActivity {
                         }
 
                         case R.id.action_dongfangxuanhuang:{
-                            if (Setting.SOURCE==1) {
+                            if (Setting.getSource()==1) {
                                 siteurl = "http://www.qiushu.cc/ls/12-1.html";
                             }
                             else siteurl="http://www.doulaidu.com/dsort/1/1.html";
                             break;
                         }
                         case R.id.action_xianxiaxiuzheng:{
-                            if (Setting.SOURCE==1) {
+                            if (Setting.getSource()==1) {
                                 siteurl = "http://www.qiushu.cc/ls/3-1.html";
                             }
                             else siteurl="http://www.doulaidu.com/dsort/2/1.html";
@@ -193,7 +193,7 @@ public class NameActivity extends AppCompatActivity {
         httpLoad.setDataDownloadListener(new HttpLoad.DataDownloadListener() {
             @Override
             public void dataDownloadSuccessfully(String result) throws UnsupportedEncodingException {
-                switch (Setting.SOURCE) {
+                switch (Setting.getSource()) {
                     case 1: {
                         Log.d("6666","解析代码为1");
                         QiushunameParse parse = new QiushunameParse(result);

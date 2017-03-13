@@ -1,28 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/im_pic_view"
+        android:layout_width="100dp"
+        android:layout_height="130dp"
+        fresco:placeholderImage="@drawable/app_icon">
+    </com.facebook.drawee.view.SimpleDraweeView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:orientation="vertical"
+        android:layout_toEndOf="@+id/im_pic_view">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:padding="10dp"
+            android:text="最新小说名"
+            android:id="@+id/tv_new_novelname"
+             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="简介。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。"/>
+        <TextView
+            android:id="@+id/tv_new_newchaptersname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="最新章节名"
+            android:textSize="12sp"
+             />
+    </LinearLayout>
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_weight="2"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:padding="10dp"
-        android:text="最新小说"
-        android:id="@+id/tv_new_novelname"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_weight="2"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:text="最新章节"
-        android:padding="10dp"
-        android:id="@+id/tv_new_newchaptersname"
-        />
-
-</LinearLayout>
+</RelativeLayout>

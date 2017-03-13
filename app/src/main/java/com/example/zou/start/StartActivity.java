@@ -52,13 +52,12 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_activity);
-        Setting.SOURCE=readsource();
         toolbar= (Toolbar) findViewById(R.id.toolbar);
         mDrawerLayout= (DrawerLayout) findViewById(R.id.dl_left);
-        if (Setting.SOURCE==1){
+        if (Setting.getSource()==1){
             toolbar.setTitle("求书网");
         }
-        if (Setting.SOURCE==2){
+        if (Setting.getSource()==2){
             toolbar.setTitle("都来读");
         }
         setSupportActionBar(toolbar);//toolbar支持
@@ -70,14 +69,14 @@ public class StartActivity extends AppCompatActivity {
                     int menuItemId = item.getItemId();
                                      switch (menuItemId){
                             case R.id.action_doushiyanqing:{
-                                if (Setting.SOURCE==1){
+                                if (Setting.getSource()==1){
                                     url="http://www.qiushu.cc/ls/4-1.html";
                                 }
                                 else url="http://www.doulaidu.com/dsort/3/1.html";
                                 break;
                             }
                             case R.id.action_langmanyanqing:{
-                                if (Setting.SOURCE==1){
+                                if (Setting.getSource()==1){
                                     url="http://www.qiushu.cc/ls/24-1.html";
                                 }
                                 else url="http://www.doulaidu.com/dsort/7/1.html";
@@ -85,14 +84,14 @@ public class StartActivity extends AppCompatActivity {
                             }
 
                             case R.id.action_dongfangxuanhuang:{
-                                if (Setting.SOURCE==1) {
+                                if (Setting.getSource()==1) {
                                     url = "http://www.qiushu.cc/ls/12-1.html";
                                 }
                                 else url="http://www.doulaidu.com/dsort/1/1.html";
                                 break;
                             }
                             case R.id.action_xianxiaxiuzheng:{
-                                if (Setting.SOURCE==1) {
+                                if (Setting.getSource()==1) {
                                     url = "http://www.qiushu.cc/ls/3-1.html";
                                 }
                                 else url="http://www.doulaidu.com/dsort/2/1.html";
@@ -141,7 +140,6 @@ public class StartActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         SQLiteDatabase db= Connector.getDatabase();
-        listView= (ListView) findViewById(R.id.listview);
         favoritenovellist =DataSupport.findAll(Novel.class);
         tv_qiushuwang= (TextView) findViewById(R.id.dl_tv_qiushuwang);
         tv_qiushuwang.setOnClickListener(new View.OnClickListener() {
@@ -149,8 +147,7 @@ public class StartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 getSupportActionBar().setTitle(tv_qiushuwang.getText());
                 mDrawerLayout.closeDrawers();
-                writesource(1);
-                Setting.SOURCE=readsource();
+                Setting.setSource(1);
                 Toast.makeText(StartActivity.getContext(),"选择源：求书网",Toast.LENGTH_SHORT).show();
                 }
         });
@@ -160,8 +157,7 @@ public class StartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 getSupportActionBar().setTitle(tv_doulaidu.getText());
                 mDrawerLayout.closeDrawers();
-                writesource(2);
-                Setting.SOURCE=readsource();
+                Setting.setSource(2);
                 Toast.makeText(StartActivity.getContext(),"选择源：都来读",Toast.LENGTH_SHORT).show();
             }
         });
@@ -222,15 +218,4 @@ public class StartActivity extends AppCompatActivity {
 
     }
 
-  public void writesource(int SOURCE){
-      SharedPreferences sharedPreferences=getSharedPreferences("setting",MODE_PRIVATE);
-      SharedPreferences.Editor editor=sharedPreferences.edit();
-      editor.putInt("source",SOURCE);
-      editor.commit();
-  }
-    public  int readsource(){
-        SharedPreferences sharedPreferences=getSharedPreferences("setting",MODE_PRIVATE);
-        int source=sharedPreferences.getInt("source",1);
-        return source;
-    }
 }

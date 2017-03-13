@@ -7,6 +7,16 @@ import org.litepal.crud.DataSupport;
  */
 public class Novel extends DataSupport{
     private int id;
+
+    public String getPicurl() {
+        return picurl;
+    }
+
+    public void setPicurl(String picurl) {
+        this.picurl = picurl;
+    }
+
+    private String picurl;
     private String title;
     private String listurl;
     private String chapterurl;
