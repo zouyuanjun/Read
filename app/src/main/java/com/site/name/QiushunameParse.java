@@ -1,5 +1,7 @@
 package com.site.name;
 
+import android.util.Log;
+
 import com.example.zou.read.NewNovelBean;
 
 import org.jsoup.Jsoup;
@@ -19,11 +21,15 @@ public class QiushunameParse {
     ArrayList<NameBean> nameBeanArrayList = new ArrayList<>();
     ArrayList<ChapterBean> chapterBeanArrayList = new ArrayList<>();
     ArrayList<NewNovelBean> newnovelbean = new ArrayList();
+    ArrayList<String> picurlarraylist=new ArrayList<>();
+    ArrayList<String> introarraylist=new ArrayList<>();
     String html;
     String url;
     String name;
     String newchaptersurl;
     String newchaptersname;
+    String picurl;
+    String intro;
 
     public QiushunameParse(String html) {
         this.html = html;
@@ -35,15 +41,20 @@ public class QiushunameParse {
         Document doc = Jsoup.parse(html);
         Elements els2 = null;
         Elements links = null;
+        Elements elpicurl=null;
+        Elements elintro=null;
         try {
             Element element = doc.getElementById("main");
             Elements els = element.getElementsByClass("t1");
             els2 = element.getElementsByClass("t4");
+            elpicurl=element.getElementsByClass("pic");
+            elintro=element.getElementsByClass("t3");
             links = els.select("a");
         } catch (Exception e) {
             e.printStackTrace();
             return;
         }
+        //提取小说名信息
         for (Element el2 : links) {
             url = el2.attr("href");
             name = el2.text();
@@ -51,19 +62,33 @@ public class QiushunameParse {
             nameBean = new NameBean(url, name);
             nameBeanArrayList.add(nameBean);
         }
-        Elements links2 = els2.select("a");
+        Elements links2 = els2.select("a");//提取章节信息
         for (Element el2 : links2) {
             newchaptersurl = el2.attr("href");
             newchaptersname = el2.text();
             chapterBean = new ChapterBean(newchaptersurl, newchaptersname);
             chapterBeanArrayList.add(chapterBean);
         }
+        //提取图片URL
+        Elements piclink=elpicurl.select("img");
+        for (Element element:piclink){
+            picurl=element.attr("src");
+            Log.d("6666","图片URL"+picurl);
+            picurlarraylist.add(picurl);
+        }
+        //提取简介
+        for (Element element:elintro){
+            intro=element.text();
+            introarraylist.add(intro);
+        }
         for (int i = 0; i < nameBeanArrayList.size(); i++) {
             String url = nameBeanArrayList.get(i).url;
             String name = nameBeanArrayList.get(i).name;
             String newchaptersurl = "www.qiushu.cc/" + chapterBeanArrayList.get(i).newchaptersurl;
             String newchaptersname = chapterBeanArrayList.get(i).newchaptersname;
-            newNovelBean = new NewNovelBean(url, name, newchaptersurl, newchaptersname);
+            String picurl=picurlarraylist.get(i);
+            String intro=introarraylist.get(i);
+            newNovelBean = new NewNovelBean(url, name, newchaptersurl, newchaptersname,picurl,intro);
             newnovelbean.add(newNovelBean);
         }
         nameBeanArrayList.clear();

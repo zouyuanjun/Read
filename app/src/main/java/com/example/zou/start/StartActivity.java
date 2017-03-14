@@ -11,6 +11,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +25,7 @@ import android.widget.Toast;
 import com.example.zou.read.NameActivity;
 import com.example.zou.read.R;
 import com.example.zou.sql.Novel;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 import org.litepal.crud.DataSupport;
 import org.litepal.tablemanager.Connector;
@@ -38,19 +41,23 @@ public class StartActivity extends AppCompatActivity {
     }
     public static Context context;
     public static StartActivity startActivity;
-    ListView listView;
     Toolbar toolbar;
     public  String  url;
+    Fresco fresco;
     TextView tv_qiushuwang;
     TextView tv_doulaidu;
     TextView tv_about;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     List<Novel> favoritenovellist;
+    private RecyclerView recyclerView;
     FavoriteAdapter favoriteAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context=this;
+        startActivity=this;
+        Fresco.initialize(context);
         setContentView(R.layout.start_activity);
         toolbar= (Toolbar) findViewById(R.id.toolbar);
         mDrawerLayout= (DrawerLayout) findViewById(R.id.dl_left);
@@ -128,8 +135,6 @@ public class StartActivity extends AppCompatActivity {
 
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);
-        context=this;
-        startActivity=this;
     }
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -141,7 +146,15 @@ public class StartActivity extends AppCompatActivity {
         super.onResume();
         SQLiteDatabase db= Connector.getDatabase();
         favoritenovellist =DataSupport.findAll(Novel.class);
+        favoritenovellist.add(new Novel());
+        favoritenovellist.add(new Novel());
+        favoritenovellist.add(new Novel());
+        favoritenovellist.add(new Novel());
+        favoritenovellist.add(new Novel());
+        favoritenovellist.add(new Novel());
         tv_qiushuwang= (TextView) findViewById(R.id.dl_tv_qiushuwang);
+        recyclerView=(RecyclerView) findViewById(R.id.start_rv);
+        recyclerView.setLayoutManager(new GridLayoutManager(context,3));
         tv_qiushuwang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,8 +182,8 @@ public class StartActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        favoriteListAdapter=new FavoriteListAdapter(favoritenovellist,listView);
-        listView.setAdapter(favoriteListAdapter);
+        favoriteAdapter=new FavoriteAdapter(favoritenovellist);
+        recyclerView.setAdapter(favoriteAdapter);
         init();
     }
 
@@ -198,23 +211,23 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void init(){
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                final String name=favoritenovellist.get(position).getTitle();
-                new AlertDialog.Builder(StartActivity.this).setPositiveButton("删除？", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        DataSupport.deleteAll(Novel.class,"title=?",name);
-                        favoriteListAdapter.refresh();
-                        favoriteListAdapter.notifyDataSetChanged();
-                        Toast.makeText(StartActivity.getContext(),"<"+name+" >已删除",Toast.LENGTH_SHORT).show();
-                    }
-                }).show();
-
-                return true;
-            }
-        });
+//        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//                final String name=favoritenovellist.get(position).getTitle();
+//                new AlertDialog.Builder(StartActivity.this).setPositiveButton("删除？", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        DataSupport.deleteAll(Novel.class,"title=?",name);
+//                        favoriteAdapter.notifyAll();
+//                        favoriteAdapter.notifyDataSetChanged();
+//                        Toast.makeText(StartActivity.getContext(),"<"+name+" >已删除",Toast.LENGTH_SHORT).show();
+//                    }
+//                }).show();
+//
+//                return true;
+//            }
+//        });
 
     }
 

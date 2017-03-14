@@ -24,6 +24,8 @@ public class DldnameParse {
     String newchaptersurl;
     String newchaptersname;
     String baseurl="http://www.doulaidu.com";
+    String picurl;
+    String intro;
     public DldnameParse(String html) throws UnsupportedEncodingException {
 
             this.html=html;
@@ -58,7 +60,7 @@ public class DldnameParse {
                 }
             }
             if (tag){
-                NewNovelBean newNovelBean=new NewNovelBean(url,name,newchaptersurl,newchaptersname);
+                NewNovelBean newNovelBean=new NewNovelBean(url,name,newchaptersurl,newchaptersname,picurl,intro);
                 Log.d("55557",url+name+newchaptersurl+newchaptersname);
                 newnovelbean.add(newNovelBean);
             }

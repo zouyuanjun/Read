@@ -5,14 +5,19 @@ package com.example.zou.read;
  */
 public class NewNovelBean {
 
-    public NewNovelBean(String url, String name, String newchaptersurl, String newchaptersname) {
-        this.url = url;
-        this.name = name;
-        this.newchaptersurl = newchaptersurl;
-        this.newchaptersname = newchaptersname;
-    }
     String url;
     String name;
     String newchaptersurl;
     String newchaptersname;
+    String picurl;
+    String intro;
+
+    public NewNovelBean(String url, String name, String newchaptersurl, String newchaptersname, String picurl, String intro) {
+        this.url = url;
+        this.name = name;
+        this.newchaptersurl = newchaptersurl;
+        this.newchaptersname = newchaptersname;
+        this.picurl = picurl;
+        this.intro = intro;
+    }
 }

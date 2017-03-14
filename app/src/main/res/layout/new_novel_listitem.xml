@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     xmlns:fresco="http://schemas.android.com/apk/res-auto">
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/im_pic_view"
@@ -13,25 +14,27 @@
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:orientation="vertical"
+        android:paddingLeft="15dp"
         android:layout_toEndOf="@+id/im_pic_view">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:padding="10dp"
+            android:textSize="20sp"
+            android:paddingTop="4dp"
             android:text="最新小说名"
             android:id="@+id/tv_new_novelname"
              />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:id="@+id/tv_intro"
             android:layout_weight="1"
-            android:text="简介。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。"/>
+            android:text="简介dfgsgsdfsdfgs使得广电分公司分公司的风格士大夫敢死队。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。"/>
         <TextView
             android:id="@+id/tv_new_newchaptersname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:paddingBottom="5dp"
             android:text="最新章节名"
             android:textSize="12sp"
              />

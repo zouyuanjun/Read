@@ -6,28 +6,27 @@
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/im_favorite_view"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
         fresco:placeholderImage="@drawable/app_icon">
     </com.facebook.drawee.view.SimpleDraweeView>
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:id="@+id/tv_favorite_nover_name"
-        android:text="收藏的小说名"
+        android:text="收藏的小说"
+        android:gravity="center_horizontal"
         android:textSize="15sp"
-        android:padding="10dp"
+
         android:layout_below="@+id/im_favorite_view"
         android:layout_alignParentStart="true" />
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:id="@+id/tv_chapter_account"
-        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
         android:text="章节数"
         android:textSize="13sp"
-        android:padding="10dp"
         android:layout_below="@+id/tv_favorite_nover_name"
-        android:layout_alignEnd="@+id/im_favorite_view"
-        android:layout_marginEnd="16dp" />
+         />
 
 </RelativeLayout>

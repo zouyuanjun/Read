@@ -69,7 +69,7 @@ public class NovelListActivity extends Activity{
         httpLoad.setDataDownloadListener(new HttpLoad.DataDownloadListener() {
             @Override
             public void dataDownloadSuccessfully(String result) {
-                switch (Setting.SOURCE){
+                switch (Setting.getSource()){
                     case 1:  {
                         QiushuDirectoryParse directoryParse=new QiushuDirectoryParse(result);
                         novelListbean=directoryParse.getNovelListbean();

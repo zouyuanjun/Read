@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.zou.chapter.ActivityChapter;
 import com.example.zou.novellist.NovelListActivity;
 import com.example.zou.start.StartActivity;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 
@@ -49,7 +50,9 @@ public class NewNovelAdapter extends BaseAdapter {
         convertView=mnewNovelInflater.inflate(R.layout.new_novel_listitem,null);
         TextView tv_new_novelname= (TextView) convertView.findViewById(R.id.tv_new_novelname);
         TextView tv_new_newchaptersname= (TextView) convertView.findViewById(R.id.tv_new_newchaptersname);
-
+        SimpleDraweeView draweeView = (SimpleDraweeView) convertView.findViewById(R.id.im_pic_view);
+        TextView tv_intro= (TextView) convertView.findViewById(R.id.tv_intro);
+        tv_intro.setText(newnovelbean.get(position).intro);
         tv_new_novelname.setText(newnovelbean.get(position).name);
         tv_new_novelname.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +60,6 @@ public class NewNovelAdapter extends BaseAdapter {
                 String novelurl=newnovelbean.get(position).url;
                 Intent intent=new Intent(StartActivity.startActivity, NovelListActivity.class);
                 intent.putExtra("novelurl",novelurl);
-                Log.d("66666","小说URL"+novelurl);
                 StartActivity.startActivity.startActivity(intent);
             }
         });
@@ -68,10 +70,11 @@ public class NewNovelAdapter extends BaseAdapter {
                 String newchapterurl=newnovelbean.get(position).newchaptersurl;
                 Intent intent=new Intent(StartActivity.startActivity, ActivityChapter.class);
                 intent.putExtra("newchapterurl",newchapterurl);
-                Log.d("66666","章节URL"+newchapterurl);
                 StartActivity.startActivity.startActivity(intent);
             }
         });
+        Log.d("6666666",newnovelbean.get(position).picurl);
+        draweeView.setImageURI(newnovelbean.get(position).picurl);
         return convertView;
     }
 }

@@ -26,9 +26,9 @@ import java.util.List;
 public class FavoriteAdapter extends RecyclerView.Adapter {
 
     //数据源
-    private List<String> dataList;
+    private List<Novel> dataList;
     //构造函数
-    public FavoriteAdapter(List<String> dataList) {
+    public FavoriteAdapter(List<Novel> dataList) {
         this.dataList = dataList;
     }
     @Override
@@ -38,7 +38,9 @@ public class FavoriteAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
             //其他条目中的逻辑在此
-            ((BodyViewHolder) viewHolder).getfavorite_nover_name().setText(dataList.get(position ));
+            ((BodyViewHolder) viewHolder).getfavorite_nover_name().setText("asd");
+            ((BodyViewHolder) viewHolder).getTv_chapter_account().setText("5554");
+            ((BodyViewHolder) viewHolder).getDraweeView().setImageURI("http://img.qiushu.cc/55/55152/55152s.jpg");
     }
 
     @Override
@@ -52,14 +54,6 @@ public class FavoriteAdapter extends RecyclerView.Adapter {
          private TextView favorite_nover_name;
          private SimpleDraweeView draweeView ;
 
-         public SimpleDraweeView getDraweeView() {
-             return draweeView;
-         }
-
-         public TextView getTv_chapter_account() {
-            return tv_chapter_account;
-        }
-
         private TextView tv_chapter_account;
         public BodyViewHolder(View itemView) {
             super(itemView);
@@ -67,6 +61,13 @@ public class FavoriteAdapter extends RecyclerView.Adapter {
             favorite_nover_name = (TextView) itemView.findViewById(R.id.tv_favorite_nover_name);
             tv_chapter_account= (TextView) itemView.findViewById(R.id.tv_chapter_account);
         }
+         public SimpleDraweeView getDraweeView() {
+             return draweeView;
+         }
+
+         public TextView getTv_chapter_account() {
+             return tv_chapter_account;
+         }
         public TextView getfavorite_nover_name() {
             return favorite_nover_name;
         }
