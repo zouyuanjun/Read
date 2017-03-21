@@ -3,12 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:fresco="http://schemas.android.com/apk/res-auto">
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/im_favorite_view"
-        android:layout_width="100dp"
-        android:layout_height="120dp"
-        fresco:placeholderImage="@drawable/app_icon">
-    </com.facebook.drawee.view.SimpleDraweeView>
+    <LinearLayout
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/stary_ly">
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/im_favorite_view"
+            android:layout_width="115dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            fresco:placeholderImage="@drawable/app_icon">
+        </com.facebook.drawee.view.SimpleDraweeView>
+    </LinearLayout>
+
     <TextView
         android:layout_width="100dp"
         android:layout_height="wrap_content"
@@ -16,8 +24,7 @@
         android:text="收藏的小说"
         android:gravity="center_horizontal"
         android:textSize="15sp"
-
-        android:layout_below="@+id/im_favorite_view"
+        android:layout_below="@+id/stary_ly"
         android:layout_alignParentStart="true" />
     <TextView
         android:layout_width="100dp"

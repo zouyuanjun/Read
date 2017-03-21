@@ -1,4 +1,4 @@
-package com.example.zou.sql;
+package com.example.z.sql;
 
 import org.litepal.crud.DataSupport;
 

@@ -8,6 +8,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:fitsSystemWindows="true"
-    tools:context=".NameActivity">
+    tools:context="com.example.z.novel.NameActivity">
     <include layout="@layout/content_main" />
 </android.support.design.widget.CoordinatorLayout>

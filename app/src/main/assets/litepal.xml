@@ -5,6 +5,6 @@
     <version value="5" ></version>
 
     <list>
-        <mapping class="com.example.zou.sql.Novel"></mapping>
+        <mapping class="com.example.z.sql.Novel"></mapping>
     </list>
 </litepal>

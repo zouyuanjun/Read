@@ -2,7 +2,7 @@ package com.site.chapter;
 
 import android.util.Log;
 
-import com.example.zou.chapter.Result;
+import com.example.z.chapter.Result;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

@@ -1,4 +1,4 @@
-package com.example.zou.novellist;
+package com.example.z.novellist;
 
 /**
  * Created by zou on 2016/7/14.

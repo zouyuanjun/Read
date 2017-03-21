@@ -1,4 +1,4 @@
-package com.example.zou.chapter;
+package com.example.z.chapter;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -17,12 +17,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.zou.novellist.NovelListActivity;
-import com.example.zou.read.R;
-import com.example.zou.sql.Novel;
-import com.example.zou.start.HttpLoad;
-import com.example.zou.start.Setting;
-import com.example.zou.start.StartActivity;
+import com.example.z.novellist.NovelListActivity;
+import com.example.z.sql.Novel;
+import com.example.z.start.HttpLoad;
+import com.example.z.start.StartActivity;
+import com.example.zou.novel.R;
+import com.example.z.start.Setting;
 import com.site.chapter.DldParse;
 import com.site.chapter.QiushuParse;
 

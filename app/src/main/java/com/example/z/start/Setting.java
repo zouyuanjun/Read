@@ -1,4 +1,4 @@
-package com.example.zou.start;
+package com.example.z.start;
 
 import android.content.SharedPreferences;
 
@@ -18,6 +18,13 @@ public class Setting {
         SharedPreferences sharedPreferences=StartActivity.getContext().getSharedPreferences("setting",MODE_PRIVATE);
         SharedPreferences.Editor editor=sharedPreferences.edit();
         editor.putInt("source",source);
+        editor.commit();
+    }
+
+    public static void writedata(String table,String key,String data){
+        SharedPreferences sharedPreferences=StartActivity.getContext().getSharedPreferences(table,MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.putString(key,data);
         editor.commit();
     }
 

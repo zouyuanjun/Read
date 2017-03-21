@@ -1,4 +1,4 @@
-package com.example.zou.novellist;
+package com.example.z.novellist;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,9 +10,9 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.zou.read.R;
-import com.example.zou.start.HttpLoad;
-import com.example.zou.start.Setting;
+import com.example.z.start.HttpLoad;
+import com.example.zou.novel.R;
+import com.example.z.start.Setting;
 import com.site.chapterdirectory.DldDirectorytParse;
 import com.site.chapterdirectory.QiushuDirectoryParse;
 

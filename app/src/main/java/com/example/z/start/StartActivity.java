@@ -1,15 +1,12 @@
-package com.example.zou.start;
+package com.example.z.start;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,14 +14,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.zou.read.NameActivity;
-import com.example.zou.read.R;
-import com.example.zou.sql.Novel;
+import com.example.z.novel.NameActivity;
+import com.example.z.sql.Novel;
+import com.example.zou.novel.R;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 import org.litepal.crud.DataSupport;

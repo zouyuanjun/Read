@@ -1,6 +1,6 @@
 package com.site.chapterdirectory;
 
-import com.example.zou.novellist.ChapterDirectoryBean;
+import com.example.z.novellist.ChapterDirectoryBean;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

@@ -1,4 +1,4 @@
-package com.example.zou.chapter;
+package com.example.z.chapter;
 
 /**
  * Created by zou on 2016/7/14.

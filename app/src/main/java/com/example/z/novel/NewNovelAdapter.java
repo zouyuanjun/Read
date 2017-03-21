@@ -1,17 +1,18 @@
-package com.example.zou.read;
+package com.example.z.novel;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.zou.chapter.ActivityChapter;
-import com.example.zou.novellist.NovelListActivity;
-import com.example.zou.start.StartActivity;
+import com.example.z.novellist.NovelListActivity;
+import com.example.z.start.StartActivity;
+import com.example.zou.novel.R;
+import com.example.z.start.Setting;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
@@ -23,10 +24,11 @@ public class NewNovelAdapter extends BaseAdapter {
     private Context context;
     ArrayList<NewNovelBean> newnovelbean=new ArrayList();
     private LayoutInflater mnewNovelInflater;
-
-    public NewNovelAdapter(ArrayList<NewNovelBean> newnovelbean) {
+    ListView listView;
+    public NewNovelAdapter(ArrayList<NewNovelBean> newnovelbean, ListView listView) {
         this.newnovelbean = newnovelbean;
         this.context= StartActivity.getContext();
+        this.listView=listView;
         mnewNovelInflater=LayoutInflater.from(context);
     }
 
@@ -54,26 +56,7 @@ public class NewNovelAdapter extends BaseAdapter {
         TextView tv_intro= (TextView) convertView.findViewById(R.id.tv_intro);
         tv_intro.setText(newnovelbean.get(position).intro);
         tv_new_novelname.setText(newnovelbean.get(position).name);
-        tv_new_novelname.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String novelurl=newnovelbean.get(position).url;
-                Intent intent=new Intent(StartActivity.startActivity, NovelListActivity.class);
-                intent.putExtra("novelurl",novelurl);
-                StartActivity.startActivity.startActivity(intent);
-            }
-        });
         tv_new_newchaptersname.setText(newnovelbean.get(position).newchaptersname);
-        tv_new_newchaptersname.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String newchapterurl=newnovelbean.get(position).newchaptersurl;
-                Intent intent=new Intent(StartActivity.startActivity, ActivityChapter.class);
-                intent.putExtra("newchapterurl",newchapterurl);
-                StartActivity.startActivity.startActivity(intent);
-            }
-        });
-        Log.d("6666666",newnovelbean.get(position).picurl);
         draweeView.setImageURI(newnovelbean.get(position).picurl);
         return convertView;
     }

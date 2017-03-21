@@ -1,4 +1,4 @@
-package com.example.zou.read;
+package com.example.zou.novel;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

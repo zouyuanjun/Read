@@ -1,22 +1,14 @@
-package com.example.zou.start;
+package com.example.z.start;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.zou.chapter.ActivityChapter;
-import com.example.zou.read.R;
-import com.example.zou.sql.Novel;
+import com.example.z.sql.Novel;
+import com.example.zou.novel.R;
 import com.facebook.drawee.view.SimpleDraweeView;
-
-import org.litepal.crud.DataSupport;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package com.site.name;
 
 import android.util.Log;
 
-import com.example.zou.read.NewNovelBean;
+import com.example.z.novel.NewNovelBean;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

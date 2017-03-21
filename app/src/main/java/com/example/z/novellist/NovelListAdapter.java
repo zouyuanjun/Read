@@ -1,4 +1,4 @@
-package com.example.zou.novellist;
+package com.example.z.novellist;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.zou.chapter.ActivityChapter;
-import com.example.zou.read.R;
-import com.example.zou.start.Setting;
-import com.example.zou.start.StartActivity;
+import com.example.z.chapter.ActivityChapter;
+import com.example.z.start.Setting;
+import com.example.z.start.StartActivity;
+import com.example.zou.novel.R;
 
 import java.util.ArrayList;
 
@@ -25,10 +25,10 @@ public class NovelListAdapter extends BaseAdapter{
     String url;
     String baseurl;
     int chapteaccount=0;
-    public NovelListAdapter(ArrayList<ChapterDirectoryBean> novelListBean, String url) {
+    public NovelListAdapter(ArrayList<ChapterDirectoryBean> novelListBean, String baseurl) {
         this.novelListBean = novelListBean;
         this.context= StartActivity.getContext();
-        this.baseurl=url;
+        this.baseurl=baseurl;
         chapteaccount=novelListBean.size();
         mNovelListInflater=LayoutInflater.from(context);
     }

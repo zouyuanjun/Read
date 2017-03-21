@@ -1,4 +1,4 @@
-package com.example.zou.read;
+package com.example.z.novel;
 
 /**
  * Created by zou on 2016/7/14.

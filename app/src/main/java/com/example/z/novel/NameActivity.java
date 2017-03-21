@@ -1,4 +1,4 @@
-package com.example.zou.read;
+package com.example.z.novel;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,33 +11,34 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.zou.start.HttpLoad;
-import com.example.zou.start.Setting;
-import com.example.zou.start.StartActivity;
+import com.example.z.novellist.NovelListActivity;
+import com.example.zou.novel.R;
+import com.example.z.start.HttpLoad;
+import com.example.z.start.Setting;
+import com.example.z.start.StartActivity;
 import com.site.name.DldnameParse;
 import com.site.name.QiushunameParse;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 /**
  * Created by zou on 2016/9/7.
  */
 public class NameActivity extends AppCompatActivity {
     String url;
-
     ListView new_novel_list;
     TextView textView;
     String siteurl;
     SwipeRefreshLayout swipeRefreshLayout;
     NewNovelAdapter newNovelAdapter;
     private  View loadmoreView;
-
-
-
+    ArrayList<NewNovelBean> newnovelbean=new ArrayList();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +70,6 @@ public class NameActivity extends AppCompatActivity {
                     //如果是自动加载,可以在这里放置异步加载数据的代码
                     if (Setting.getSource() == 1) {
                         int id = url.indexOf("-");
-
                         int length = url.length();
                         lasturl = url.substring(0, id + 1) + String.valueOf(index + 1) + url.substring(id + 2, length);
                         index++;
@@ -92,12 +92,10 @@ public class NameActivity extends AppCompatActivity {
             }
         });
     }
-
     @Override
     protected void onNewIntent(Intent intent) {
         url = intent.getStringExtra("url");
         init(url);
-
         swipeRefreshLayout.setColorSchemeColors(R.color.gray,R.color.darkgoldenrod,R.color.colorPrimary,R.color.darkgrey);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -131,7 +129,6 @@ public class NameActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
     public void init(String url) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.name_activitytoolbar);
         if (Setting.getSource()==1){
@@ -161,7 +158,6 @@ public class NameActivity extends AppCompatActivity {
                             else siteurl="http://www.doulaidu.com/dsort/7/1.html";
                             break;
                         }
-
                         case R.id.action_dongfangxuanhuang:{
                             if (Setting.getSource()==1) {
                                 siteurl = "http://www.qiushu.cc/ls/12-1.html";
@@ -176,7 +172,6 @@ public class NameActivity extends AppCompatActivity {
                             else siteurl="http://www.doulaidu.com/dsort/2/1.html";
                             break;
                         }
-
                     }
                     Intent intent = new Intent(NameActivity.this, NameActivity.class);
                     intent.putExtra("url", siteurl);
@@ -184,11 +179,20 @@ public class NameActivity extends AppCompatActivity {
                     return true;
                 }
             });
-
         }
         new_novel_list = (ListView) findViewById(R.id.lv_new_novel);
+        new_novel_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String novelurl=newnovelbean.get(position).url;
+                Setting.writedata("DATA","novelname",newnovelbean.get(position).name);
+                Setting.writedata("DATA","picurl",newnovelbean.get(position).picurl);
+                Intent intent=new Intent(StartActivity.startActivity, NovelListActivity.class);
+                intent.putExtra("novelurl",novelurl);
+                StartActivity.startActivity.startActivity(intent);
+            }
+        });
         textView = (TextView) findViewById(R.id.wait_newlist_tv);
-
         HttpLoad httpLoad = new HttpLoad();
         httpLoad.setDataDownloadListener(new HttpLoad.DataDownloadListener() {
             @Override
@@ -197,13 +201,15 @@ public class NameActivity extends AppCompatActivity {
                     case 1: {
                         Log.d("6666","解析代码为1");
                         QiushunameParse parse = new QiushunameParse(result);
-                        newNovelAdapter = new NewNovelAdapter(parse.getNewnovelbean());
+                        newnovelbean=parse.getNewnovelbean();
+                        newNovelAdapter = new NewNovelAdapter(newnovelbean,new_novel_list);
                         break;
                     }
                     case 2: {
                         Log.d("6666","解析代码为2");
                         DldnameParse dldnameParse = new DldnameParse(result);
-                        newNovelAdapter = new NewNovelAdapter(dldnameParse.getNewnovelbean());
+                        newnovelbean=dldnameParse.getNewnovelbean();
+                        newNovelAdapter = new NewNovelAdapter(newnovelbean,new_novel_list);
                         break;
                     }
                 }
@@ -212,7 +218,6 @@ public class NameActivity extends AppCompatActivity {
                 newNovelAdapter.notifyDataSetChanged();
                 textView.setVisibility(View.GONE);
             }
-
             @Override
             public void dataDownloadFailed() {
                 textView.setText("O豁，服务器炸了，过一会再来或者下拉刷新试试");
