@@ -9,22 +9,29 @@ import android.text.Html;
 import android.text.Layout;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.z.novellist.NovelListActivity;
 import com.example.z.sql.Novel;
-import com.example.z.start.HttpLoad;
+import com.example.z.util.CustomTextview;
+import com.example.z.util.HttpLoad;
 import com.example.z.start.StartActivity;
 import com.example.zou.novel.R;
 import com.example.z.start.Setting;
 import com.site.chapter.DldParse;
 import com.site.chapter.QiushuParse;
+
+import java.sql.Time;
+import java.util.Calendar;
 
 /**
  * Created by zou on 2016/7/14.
@@ -34,12 +41,10 @@ public class ActivityChapter extends Activity {
     String directoryurl ="";
     String content;
     String url;
-    TextView tv_content;
+    CustomTextview tv_content;
     Result mresult;
     String lasturl;
     String nexturl;
-    Button bt_last;
-    Button bt_next;
     String name;
     int chapteraccount;
     String chaptertitle;
@@ -57,45 +62,40 @@ public class ActivityChapter extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 隐藏标题栏
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        // 隐藏状态栏
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_chapter);
+
+        Display mDisplay = getWindowManager().getDefaultDisplay();//获取屏幕分辨率
+        int W = mDisplay.getWidth();
+        final int H = mDisplay.getHeight();
+
         intent=getIntent();
         source=Setting.getSource();
         url=intent.getStringExtra("newchapterurl");
         directoryurl =intent.getStringExtra("directoryurl");//获取目录url
         chapteraccount=intent.getIntExtra("chapteraccount",0);//获取章节URL
         source=intent.getIntExtra("source",1);
-        tv_content= (TextView) findViewById(R.id.tv_content);
-        bt_last= (Button) findViewById(R.id.bt_last_chapter);
-        bt_last.setOnClickListener(new View.OnClickListener() {
+        tv_content= (CustomTextview) findViewById(R.id.tv_content);
+        tv_content.setOndownlistener(new CustomTextview.OndownActionListener() {
             @Override
-            public void onClick(View v) {
-                init(lasturl);
-                tv_content.scrollTo(0,0);
-            }
-        });
-        bt_next= (Button) findViewById(R.id.bt_next_chapter);
-        bt_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (source) {
-                    case 1: {
-                        islastchapterurl = directoryurl + "./";
-                        break;
-                    }
-                    case 2: {
-                        islastchapterurl = directoryurl;
-                        break;
-                    }
-                }
+            public void OnDown(float x, float y) {
+                if (y>H*2/3){
+                    nextpag();
+                }else if (y<H/3){
+                    init(lasturl);
+                    tv_content.scrollTo(0,0);
+                }else {
 
-                if (islastchapterurl.equals(nexturl)) {
-                    Toast.makeText(StartActivity.getContext(), "已经到最后一章", Toast.LENGTH_LONG).show();
-                } else {
-                    init(nexturl);
-                    tv_content.scrollTo(0, 0);
                 }
             }
         });
+
+
         ViewTreeObserver observer = tv_content.getViewTreeObserver(); // textAbstract为TextView控件
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 
@@ -121,12 +121,6 @@ public class ActivityChapter extends Activity {
             }
         });
 
-        tv_content.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                nextpag();
-            }
-        });
 
         init(url);
     }
@@ -224,8 +218,7 @@ public class ActivityChapter extends Activity {
                 nexturl= directoryurl +mresult.nexturl;
                 chaptertitle=mresult.chaptertitle;
                 tv_content.setText(Html.fromHtml(content));
-                noverstring =tv_content.getText().toString();
-                Log.d("55555",noverstring);
+                tv_content.setTitle(chaptertitle);
                 tv_content.setMovementMethod(new ScrollingMovementMethod());
                 Novel updatanovel=new Novel();
                 updatanovel.setChapterurl(url);
@@ -245,5 +238,6 @@ public class ActivityChapter extends Activity {
         });
         httpLoad.execute(url);
     }
+
 }
 

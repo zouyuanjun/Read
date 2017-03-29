@@ -1,7 +1,9 @@
-package com.example.z.start;
+package com.example.z.util;
 
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.example.z.start.Setting;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;

@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.example.z.novellist.NovelListActivity;
 import com.example.zou.novel.R;
-import com.example.z.start.HttpLoad;
+import com.example.z.util.HttpLoad;
 import com.example.z.start.Setting;
 import com.example.z.start.StartActivity;
 import com.site.name.DldnameParse;

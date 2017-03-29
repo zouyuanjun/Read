@@ -10,7 +10,7 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.z.start.HttpLoad;
+import com.example.z.util.HttpLoad;
 import com.example.zou.novel.R;
 import com.example.z.start.Setting;
 import com.site.chapterdirectory.DldDirectorytParse;

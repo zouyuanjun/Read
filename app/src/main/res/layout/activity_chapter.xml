@@ -4,38 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/hbg">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_gravity="center"
+    <com.example.z.util.CustomTextview
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="@color/black"
+        android:id="@+id/tv_content"
         android:gravity="center_vertical"
         android:scrollbars="vertical"
         android:textSize="20sp"
-        android:padding="5dp"
+        android:paddingTop="30dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:lineSpacingMultiplier="1.5"
         android:text="正在加载，稍等一下..."
-        android:id="@+id/tv_content" />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true">
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="上一章"
-            android:id="@+id/bt_last_chapter"/>
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="下一章"
-            android:layout_height="wrap_content"
-            android:id="@+id/bt_next_chapter"/>
-    </LinearLayout>
-
+   ></com.example.z.util.CustomTextview>
 
 </LinearLayout>
