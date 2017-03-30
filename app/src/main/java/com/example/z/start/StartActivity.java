@@ -13,12 +13,15 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.z.chapter.ActivityChapter;
 import com.example.z.novel.NameActivity;
 import com.example.z.sql.Novel;
+import com.example.z.util.MyItemDecoration;
 import com.example.zou.novel.R;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
@@ -141,15 +144,11 @@ public class StartActivity extends AppCompatActivity {
         super.onResume();
         SQLiteDatabase db= Connector.getDatabase();
         favoritenovellist =DataSupport.findAll(Novel.class);
-        favoritenovellist.add(new Novel());
-        favoritenovellist.add(new Novel());
-        favoritenovellist.add(new Novel());
-        favoritenovellist.add(new Novel());
-        favoritenovellist.add(new Novel());
-        favoritenovellist.add(new Novel());
+
         tv_qiushuwang= (TextView) findViewById(R.id.dl_tv_qiushuwang);
         recyclerView=(RecyclerView) findViewById(R.id.start_rv);
         recyclerView.setLayoutManager(new GridLayoutManager(context,3));
+        recyclerView.addItemDecoration(new MyItemDecoration());
         tv_qiushuwang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,37 +178,33 @@ public class StartActivity extends AppCompatActivity {
         });
         favoriteAdapter=new FavoriteAdapter(favoritenovellist);
         recyclerView.setAdapter(favoriteAdapter);
+        favoriteAdapter.setOnItemClickListener(new FavoriteAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, String data) {
+                Intent intent=new Intent(StartActivity.this, ActivityChapter.class);
+                intent.putExtra("chapterurl",data);
+                startActivity(intent);
+            }
+        });
         init();
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_qiushuwang, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_doushiyanqing) {
-            Intent intent = new Intent(StartActivity.this, NameActivity.class);
-            startActivity(intent);
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 
     public void init(){
+
 //        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 //            @Override
 //            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                final String name=favoritenovellist.get(position).getTitle();
+//                final String name=favoritenovellist.get(position).getNovelname();
 //                new AlertDialog.Builder(StartActivity.this).setPositiveButton("删除？", new DialogInterface.OnClickListener() {
 //                    @Override
 //                    public void onClick(DialogInterface dialog, int which) {

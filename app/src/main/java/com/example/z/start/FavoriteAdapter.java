@@ -1,6 +1,8 @@
 package com.example.z.start;
 
+import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +17,7 @@ import java.util.List;
 /**
  * Created by zou on 2016/7/19.
  */
-public class FavoriteAdapter extends RecyclerView.Adapter {
+public class FavoriteAdapter extends RecyclerView.Adapter implements View.OnClickListener {
 
     //数据源
     private List<Novel> dataList;
@@ -23,16 +25,40 @@ public class FavoriteAdapter extends RecyclerView.Adapter {
     public FavoriteAdapter(List<Novel> dataList) {
         this.dataList = dataList;
     }
+    private OnRecyclerViewItemClickListener mOnItemClickListener = null;
+
+    @Override
+    public void onClick(View v) {
+        if (mOnItemClickListener != null) {
+
+        mOnItemClickListener.onItemClick(v, (String) v.getTag());
+        }
+    }
+
+
+    public static interface OnRecyclerViewItemClickListener {
+        void onItemClick(View view , String data);
+    }
+
+
+    public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
+        this.mOnItemClickListener = listener;
+    }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        return new BodyViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.startactivity_item, null));
+        View view=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.startactivity_item, null);
+        BodyViewHolder bodyViewHolder=new BodyViewHolder(view);
+        view.setOnClickListener(this);
+        return bodyViewHolder;
     }
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
             //其他条目中的逻辑在此
-            ((BodyViewHolder) viewHolder).getfavorite_nover_name().setText("asd");
-            ((BodyViewHolder) viewHolder).getTv_chapter_account().setText("5554");
-            ((BodyViewHolder) viewHolder).getDraweeView().setImageURI("http://img.qiushu.cc/55/55152/55152s.jpg");
+            Setting.setSource(dataList.get(position).getSource());
+            ((BodyViewHolder)viewHolder).itemView.setTag(dataList.get(position).getChapterurl());
+            ((BodyViewHolder) viewHolder).getfavorite_nover_name().setText(dataList.get(position).getNovelname());
+            ((BodyViewHolder) viewHolder).getTv_chapter_account().setText(dataList.get(position).getChaptertitle());
+            ((BodyViewHolder) viewHolder).getDraweeView().setImageURI(dataList.get(position).getPicurl());
     }
 
     @Override
@@ -45,9 +71,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter {
     public class BodyViewHolder extends RecyclerView.ViewHolder {
          private TextView favorite_nover_name;
          private SimpleDraweeView draweeView ;
-
-        private TextView tv_chapter_account;
-        public BodyViewHolder(View itemView) {
+         private TextView tv_chapter_account;
+         public BodyViewHolder(View itemView) {
             super(itemView);
             draweeView = (SimpleDraweeView) itemView.findViewById(R.id.im_favorite_view);
             favorite_nover_name = (TextView) itemView.findViewById(R.id.tv_favorite_nover_name);

@@ -21,7 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.z.novellist.NovelListActivity"></activity>
+        <activity android:name="com.example.z.novellist.NovelListActivity"
+            ></activity>
         <activity android:name="com.example.z.chapter.ActivityChapter"></activity>
         <activity android:name="com.example.z.novel.NameActivity"
             android:launchMode="singleTask">

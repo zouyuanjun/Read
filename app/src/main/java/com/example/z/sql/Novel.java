@@ -17,11 +17,12 @@ public class Novel extends DataSupport{
     }
 
     private String picurl;
-    private String title;
+    private String novelname;
     private String listurl;
     private String chapterurl;
     private int chapteraccount;
     private String chaptertitle;
+    private int source;
 
     public int getSource() {
         return source;
@@ -30,8 +31,6 @@ public class Novel extends DataSupport{
     public void setSource(int source) {
         this.source = source;
     }
-
-    private int source;
 
     public String getChaptertitle() {
         return chaptertitle;
@@ -65,12 +64,12 @@ public class Novel extends DataSupport{
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getNovelname() {
+        return novelname;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setNovelname(String novelname) {
+        this.novelname = novelname;
     }
 
     public String getListurl() {

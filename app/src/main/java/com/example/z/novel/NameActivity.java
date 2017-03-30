@@ -42,7 +42,7 @@ public class NameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_novelname);
         Intent l = getIntent();
         url = l.getStringExtra("url");
         swipeRefreshLayout= (SwipeRefreshLayout) findViewById(R.id.sr_layout);
@@ -65,7 +65,8 @@ public class NameActivity extends AppCompatActivity {
             public void onScrollStateChanged(AbsListView absListView, int i) {
                 int itemsLastIndex =  newNovelAdapter.getCount() - 1;    //数据集最后一项的索引
                 int lastIndex = itemsLastIndex + 1;
-                String lasturl=url;//加上底部的loadMoreView项
+                String lasturl=url;
+                //加上底部的loadMoreView项
                 if (i == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && visibleLastIndex == lastIndex) {
                     //如果是自动加载,可以在这里放置异步加载数据的代码
                     if (Setting.getSource() == 1) {
@@ -105,23 +106,15 @@ public class NameActivity extends AppCompatActivity {
         });
         super.onNewIntent(intent);
     }
-
-    //
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_qiushuwang, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_doushiyanqing) {
             Intent intent = new Intent(NameActivity.this, NameActivity.class);
             startActivity(intent);
@@ -187,9 +180,10 @@ public class NameActivity extends AppCompatActivity {
                 String novelurl=newnovelbean.get(position).url;
                 Setting.writedata("DATA","novelname",newnovelbean.get(position).name);
                 Setting.writedata("DATA","picurl",newnovelbean.get(position).picurl);
-                Intent intent=new Intent(StartActivity.startActivity, NovelListActivity.class);
-                intent.putExtra("novelurl",novelurl);
-                StartActivity.startActivity.startActivity(intent);
+                Intent intent=new Intent(NameActivity.this, NovelListActivity.class);
+                intent.putExtra("listurl",novelurl);
+                intent.putExtra("novelname",newnovelbean.get(position).name);
+                startActivity(intent);
             }
         });
         textView = (TextView) findViewById(R.id.wait_newlist_tv);

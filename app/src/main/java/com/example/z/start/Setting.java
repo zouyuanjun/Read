@@ -27,5 +27,10 @@ public class Setting {
         editor.putString(key,data);
         editor.commit();
     }
+    public static String getdata(String table,String key){
+        SharedPreferences sharedPreferences=StartActivity.getContext().getSharedPreferences(table,MODE_PRIVATE);
+        String data=sharedPreferences.getString(key,"获取失败");
+        return  data;
+    }
 
 }
