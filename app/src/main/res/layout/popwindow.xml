@@ -9,6 +9,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:layout_height="60dp"
+        android:textSize="23sp"
         android:text="收藏"
         android:id="@+id/tv_collect"/>
     <TextView
@@ -16,7 +17,9 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="60dp"
+        android:textSize="23sp"
         android:text="目录"
-        android:id="@+id/tv_backlist"/>
+        android:id="@+id/tv_backlist"
+        />
 
 </LinearLayout>

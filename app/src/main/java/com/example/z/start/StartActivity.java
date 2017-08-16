@@ -1,16 +1,20 @@
 package com.example.z.start;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import android.os.IBinder;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -20,14 +24,18 @@ import android.widget.Toast;
 
 import com.example.z.chapter.ActivityChapter;
 import com.example.z.novel.NameActivity;
+import com.example.z.novellist.ChapterDirectoryBean;
 import com.example.z.sql.Novel;
 import com.example.z.util.MyItemDecoration;
+import com.example.z.util.Myservice;
 import com.example.zou.novel.R;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.site.chapterdirectory.QiushuDirectoryParse;
 
 import org.litepal.crud.DataSupport;
 import org.litepal.tablemanager.Connector;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,7 +57,9 @@ public class StartActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     List<Novel> favoritenovellist;
     private RecyclerView recyclerView;
-    FavoriteAdapter favoriteAdapter;
+    private FavoriteAdapter favoriteAdapter;
+    private Myservice.MyBinder myBinder;
+    ArrayList<ChapterDirectoryBean> novelListbean=new ArrayList();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -186,7 +196,7 @@ public class StartActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        init();
+       // init();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -200,25 +210,23 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void init(){
+        ServiceConnection connection=new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                myBinder= (Myservice.MyBinder)service;
+                String data=myBinder.httpconnet(favoritenovellist.get(0).getListurl());
+                QiushuDirectoryParse directoryParse=new QiushuDirectoryParse(data);
+                novelListbean=directoryParse.getNovelListbean();
+                int account=novelListbean.size();
+                Log.d("5555","sdfs"+account);
+            }
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
 
-//        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                final String name=favoritenovellist.get(position).getNovelname();
-//                new AlertDialog.Builder(StartActivity.this).setPositiveButton("删除？", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        DataSupport.deleteAll(Novel.class,"title=?",name);
-//                        favoriteAdapter.notifyAll();
-//                        favoriteAdapter.notifyDataSetChanged();
-//                        Toast.makeText(StartActivity.getContext(),"<"+name+" >已删除",Toast.LENGTH_SHORT).show();
-//                    }
-//                }).show();
-//
-//                return true;
-//            }
-//        });
-
+            }
+        };
+        Intent bindIntent=new Intent(this, Myservice.class);
+        bindService(bindIntent,connection, BIND_AUTO_CREATE);
     }
 
 }

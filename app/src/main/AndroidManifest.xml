@@ -28,6 +28,7 @@
             android:launchMode="singleTask">
         </activity>
         <activity android:name="com.example.z.start.About"></activity>
+        <service android:name="com.example.z.util.Myservice"></service>
     </application>
 
 </manifest>
