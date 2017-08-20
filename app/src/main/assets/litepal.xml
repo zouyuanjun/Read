@@ -5,6 +5,6 @@
     <version value="6" ></version>
 
     <list>
-        <mapping class="com.example.z.sql.Novel"></mapping>
+        <mapping class="com.zou.suibian.novel.sql.Novel"></mapping>
     </list>
 </litepal>

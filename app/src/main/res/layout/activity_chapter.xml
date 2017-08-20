@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/hbg"
     android:id="@+id/chapteractivity">
-    <com.example.z.util.CustomTextview
+    <com.zou.suibian.novel.util.CustomTextview
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textColor="@color/black"
@@ -18,6 +18,6 @@
         android:paddingRight="5dp"
         android:lineSpacingMultiplier="1.5"
         android:text="正在加载，稍等一下..."
-   ></com.example.z.util.CustomTextview>
+   ></com.zou.suibian.novel.util.CustomTextview>
 
 </LinearLayout>

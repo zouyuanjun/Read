@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:fitsSystemWindows="true"
-    tools:context="com.example.z.start.StartActivity">
+    tools:context=".novel.start.StartActivity">
 
       <include layout="@layout/custom_toolbar"></include>
 
