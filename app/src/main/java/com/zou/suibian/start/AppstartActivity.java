@@ -70,7 +70,7 @@ public class AppstartActivity extends AppCompatActivity {
 
     }
     public class GVadapter extends BaseAdapter {
-        public ImageView imageView;
+        public ImageView imageView;;
         public TextView textView;
         public ArrayList arrayList=new ArrayList();
         ArrayList Textarratlist=new ArrayList();
